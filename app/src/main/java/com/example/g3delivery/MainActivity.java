@@ -1,5 +1,6 @@
 package com.example.g3delivery;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -8,8 +9,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.g3delivery.ui.login.LoginActivity;
+import com.example.g3delivery.ui.login.LoginViewModelFactory;
+
 public class MainActivity extends AppCompatActivity {
 
+    // TODO: Create an entry point for the login screen and for the app home screen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,5 +25,11 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // TODO: Check login tokens here, if the token is valid go to app home screen
+        Intent activityIntent;
+        if(true){
+            activityIntent = new Intent(this, LoginActivity.class);
+        }
+        startActivity(activityIntent);
     }
 }
