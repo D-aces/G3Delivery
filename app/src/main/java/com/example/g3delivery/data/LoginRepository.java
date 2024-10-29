@@ -1,6 +1,7 @@
 package com.example.g3delivery.data;
 
 import com.example.g3delivery.data.model.LoggedInUser;
+import com.google.android.gms.tasks.Task;
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -43,12 +44,7 @@ public class LoginRepository {
         // @see https://developer.android.com/training/articles/keystore
     }
 
-    public Result<LoggedInUser> login(String username, String password) {
-        // handle login
-        //Result<LoggedInUser> result = dataSource.login(username, password);
-//        if (result instanceof Result.Success) {
-//            setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());
-//        }
-        return null;
+    public Task<LoggedInUser> login(String email, String password) {
+        return dataSource.login(email, password);
     }
 }

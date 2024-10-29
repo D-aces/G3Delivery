@@ -8,13 +8,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import com.example.g3delivery.ui.home.HomeActivity;
 import com.example.g3delivery.ui.login.LoginActivity;
+import com.example.g3delivery.ui.login.LoginViewModel;
 import com.example.g3delivery.ui.login.LoginViewModelFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    // TODO: Create an entry point for the login screen and for the app home screen
+    private LoginViewModel loginViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,11 +29,20 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        // TODO: Check login tokens here, if the token is valid go to app home screen
-        Intent activityIntent;
-        if(true){
-            activityIntent = new Intent(this, LoginActivity.class);
-        }
-        startActivity(activityIntent);
+
+        // Initialize the LoginViewModel
+        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory()).get(LoginViewModel.class);
+
+        // Observe the login status
+        loginViewModel.isLoggedIn().observe(this, isLoggedIn -> {
+            Intent activityIntent;
+            if (isLoggedIn) {
+                activityIntent = new Intent(MainActivity.this, HomeActivity.class);
+            } else {
+                activityIntent = new Intent(MainActivity.this, LoginActivity.class);
+            }
+            startActivity(activityIntent);
+            finish();
+        });
     }
 }
