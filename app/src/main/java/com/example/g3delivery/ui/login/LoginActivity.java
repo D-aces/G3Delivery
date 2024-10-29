@@ -1,7 +1,5 @@
 package com.example.g3delivery.ui.login;
 
-import android.app.Activity;
-
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -24,10 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.g3delivery.R;
-import com.example.g3delivery.ui.home.HomeActivity;
-import com.example.g3delivery.ui.login.LoginViewModel;
-import com.example.g3delivery.ui.login.LoginViewModelFactory;
 import com.example.g3delivery.databinding.ActivityLoginBinding;
+import com.example.g3delivery.ui.home.HomeActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -72,9 +68,11 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 loadingProgressBar.setVisibility(View.GONE);
+
                 if (loginResult.getError() != null) {
                     showLoginFailed(loginResult.getError());
                 }
+
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
 
@@ -85,7 +83,6 @@ public class LoginActivity extends AppCompatActivity {
                     // Complete and destroy login activity once successful
                     finish();
                 }
-                setResult(Activity.RESULT_OK);
             }
         });
 
