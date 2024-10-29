@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.g3delivery.R;
+import com.example.g3delivery.ui.home.HomeActivity;
 import com.example.g3delivery.ui.login.LoginViewModel;
 import com.example.g3delivery.ui.login.LoginViewModelFactory;
 import com.example.g3delivery.databinding.ActivityLoginBinding;
@@ -75,11 +77,15 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
+
+                    // Start HomeActivity upon successful login
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+
+                    // Complete and destroy login activity once successful
+                    finish();
                 }
                 setResult(Activity.RESULT_OK);
-
-                //Complete and destroy login activity once successful
-                finish();
             }
         });
 
