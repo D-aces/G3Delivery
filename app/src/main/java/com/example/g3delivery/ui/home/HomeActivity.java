@@ -14,6 +14,8 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // TODO: Add the ability to open fragments for ordering food
+        // TODO: Initialize the recycler view to display a list of restaurants (use the restaurant items layout to display each restaurant)
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
