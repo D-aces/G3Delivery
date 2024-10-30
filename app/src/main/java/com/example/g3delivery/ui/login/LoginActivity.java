@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.g3delivery.R;
 import com.example.g3delivery.databinding.ActivityLoginBinding;
 import com.example.g3delivery.RestaurantCatalogueActivity;
+import com.example.g3delivery.ui.login.viewModel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
 

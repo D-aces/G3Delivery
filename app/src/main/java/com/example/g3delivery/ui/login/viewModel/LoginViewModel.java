@@ -1,4 +1,4 @@
-package com.example.g3delivery.ui.login;
+package com.example.g3delivery.ui.login.viewModel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModel;
 import com.example.g3delivery.data.repository.LoginRepository;
 import com.example.g3delivery.data.model.LoggedInUser;
 import com.example.g3delivery.R;
+import com.example.g3delivery.ui.login.LoggedInUserView;
+import com.example.g3delivery.ui.login.LoginFormState;
+import com.example.g3delivery.ui.login.LoginResult;
 import com.google.android.gms.tasks.Task;
 
 public class LoginViewModel extends ViewModel {

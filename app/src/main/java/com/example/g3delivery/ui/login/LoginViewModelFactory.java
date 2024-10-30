@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.example.g3delivery.data.datasource.LoginDataSource;
 import com.example.g3delivery.data.repository.LoginRepository;
+import com.example.g3delivery.ui.login.viewModel.LoginViewModel;
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.
