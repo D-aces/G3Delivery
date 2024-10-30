@@ -10,7 +10,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.g3delivery.ui.home.HomeActivity;
 import com.example.g3delivery.ui.login.LoginActivity;
 import com.example.g3delivery.ui.login.LoginViewModel;
 import com.example.g3delivery.ui.login.LoginViewModelFactory;
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         loginViewModel.isLoggedIn().observe(this, isLoggedIn -> {
             Intent activityIntent;
             if (isLoggedIn) {
-                activityIntent = new Intent(MainActivity.this, HomeActivity.class);
+                activityIntent = new Intent(MainActivity.this, RestaurantCatalogueActivity.class);
             } else {
                 activityIntent = new Intent(MainActivity.this, LoginActivity.class);
             }

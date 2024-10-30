@@ -1,5 +1,6 @@
-package com.example.g3delivery.data;
+package com.example.g3delivery.data.repository;
 
+import com.example.g3delivery.data.datasource.LoginDataSource;
 import com.example.g3delivery.data.model.LoggedInUser;
 import com.google.android.gms.tasks.Task;
 

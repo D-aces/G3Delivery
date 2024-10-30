@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import android.util.Patterns;
-
-import com.example.g3delivery.data.LoginRepository;
-import com.example.g3delivery.data.Result;
+import com.example.g3delivery.data.repository.LoginRepository;
 import com.example.g3delivery.data.model.LoggedInUser;
 import com.example.g3delivery.R;
 import com.google.android.gms.tasks.Task;

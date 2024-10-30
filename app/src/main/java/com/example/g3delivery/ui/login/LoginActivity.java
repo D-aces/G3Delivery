@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.example.g3delivery.R;
 import com.example.g3delivery.databinding.ActivityLoginBinding;
-import com.example.g3delivery.ui.home.HomeActivity;
+import com.example.g3delivery.RestaurantCatalogueActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                     updateUiWithUser(loginResult.getSuccess());
 
                     // Start HomeActivity upon successful login
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, RestaurantCatalogueActivity.class);
                     startActivity(intent);
 
                     // Complete and destroy login activity once successful
