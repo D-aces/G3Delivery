@@ -31,6 +31,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listRestaurant"
         android:layout_width="409dp"
         android:layout_height="665dp"
         android:layout_marginTop="1dp"

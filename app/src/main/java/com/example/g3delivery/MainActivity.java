@@ -11,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.g3delivery.ui.login.LoginActivity;
-import com.example.g3delivery.ui.login.viewModel.LoginViewModel;
+import com.example.g3delivery.ui.login.LoginViewModel;
 import com.example.g3delivery.ui.login.LoginViewModelFactory;
 
 public class MainActivity extends AppCompatActivity {

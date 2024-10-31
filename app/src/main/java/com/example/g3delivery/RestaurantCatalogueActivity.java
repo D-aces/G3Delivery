@@ -7,13 +7,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.g3delivery.adapter.RestaurantAdapter;
+import com.example.g3delivery.data.model.Restaurant;
+
+import java.util.List;
 
 public class RestaurantCatalogueActivity extends AppCompatActivity {
+    private RecyclerView listRestaurants;
+    private RestaurantAdapter restaurantAdapter;
+    private List<Restaurant> restaurantList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO: Add the ability to open fragments for ordering food
-        // TODO: Initialize the recycler view to display a list of restaurants (use the restaurant items layout to display each restaurant)
+        // TODO: Set up an adapter to display each restaurant
+        // TODO: Set up the list of restaurants with a recycler view
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_restaurant_catalogue);
@@ -22,5 +32,14 @@ public class RestaurantCatalogueActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Set up recycler view
+        listRestaurants = findViewById(R.id.listRestaurant);
+        listRestaurants.setLayoutManager(new LinearLayoutManager((this)));
+
+        // TODO: Set up datasource access for the restaurants
+        // restaurantList = ;
+
+
     }
 }
