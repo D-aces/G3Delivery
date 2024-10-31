@@ -4,7 +4,9 @@ import com.example.g3delivery.data.model.FoodItem;
 import com.example.g3delivery.data.model.Menu;
 import com.example.g3delivery.data.model.Order;
 import com.example.g3delivery.data.model.Restaurant;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -12,14 +14,26 @@ import java.util.Map;
 
 public class AppDataSource {
     private final FirebaseFirestore db;
-    private final DocumentReference restaurantsCollection;
 
     public AppDataSource() {
         db = FirebaseFirestore.getInstance();
-        restaurantsCollection = db.collection("restaurants").document();  // Set base collection reference
     }
 
     // Restaurants Collection Operations
+    public void getRestaurants() {
+        CollectionReference restaurantColRef = db.collection("restaurants");
+
+        restaurantColRef.get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        Restaurant restaurant = document.toObject(Restaurant.class);
+                        System.out.println("Restaurant: " + restaurant.getName());
+                        // Handle the restaurant object here
+                    }
+                })
+                .addOnFailureListener(e -> System.err.println("Error fetching restaurants: " + e.getMessage()));
+    }
+
     public void createRestaurant(Restaurant restaurant) {
         // Auto-generate ID for each restaurant
         DocumentReference restaurantDocRef = db.collection("restaurants").document();
@@ -48,6 +62,37 @@ public class AppDataSource {
     public void deleteRestaurant() {}
 
     // Menus Collection Operations
+    public void getFoodItemsForMenu(String restaurantId, String menuId) {
+        DocumentReference menuDocRef = db.collection("restaurants")
+                .document(restaurantId)
+                .collection("menus")
+                .document(menuId);
+
+        menuDocRef.collection("foodItems").get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        FoodItem foodItem = document.toObject(FoodItem.class);
+                        System.out.println("Food Item: " + foodItem.getName());
+                        // Handle the foodItem object here
+                    }
+                })
+                .addOnFailureListener(e -> System.err.println("Error fetching food items: " + e.getMessage()));
+    }
+
+    public void getMenuForRestaurant(String restaurantId) {
+        DocumentReference restaurantDocRef = db.collection("restaurants").document(restaurantId);
+
+        restaurantDocRef.collection("menus").get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        Menu menu = document.toObject(Menu.class);
+                        System.out.println("Menu retrieved for restaurant: " + restaurantId);
+                        // Handle the menu object here
+                    }
+                })
+                .addOnFailureListener(e -> System.err.println("Error fetching menu: " + e.getMessage()));
+    }
+
     public void createMenu(Menu menu, DocumentReference restaurantDocRef) {
         DocumentReference menuDocRef = restaurantDocRef.collection("menus").document();
 

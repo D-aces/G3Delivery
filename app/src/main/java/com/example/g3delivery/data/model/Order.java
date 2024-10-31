@@ -1,8 +1,12 @@
 package com.example.g3delivery.data.model;
 
+import com.google.firebase.firestore.auth.User;
+
 import java.util.ArrayList;
 
 public class Order {
+    // TODO Add user specific logic here
+    // private user
     private Restaurant restaurant;
     private Menu menu;
     private ArrayList<FoodItem> selectedFoodItems = new ArrayList<FoodItem>();
