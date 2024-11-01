@@ -21,6 +21,7 @@ public class AppDataSource {
         db = FirebaseFirestore.getInstance();
     }
 
+   // TODO
     // Restaurants Collection Operations
     public List<Restaurant> getRestaurants() {
         CollectionReference restaurantColRef = db.collection("Restaurants");
