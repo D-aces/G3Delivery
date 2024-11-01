@@ -1,6 +1,10 @@
 package com.example.g3delivery.adapter;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.g3delivery.MenuActivity;
 import com.example.g3delivery.R;
+import com.example.g3delivery.RestaurantCatalogueActivity;
 import com.example.g3delivery.data.model.Restaurant;
 import java.util.List;
 
@@ -20,8 +26,11 @@ import java.util.List;
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder> {
 
     private List<Restaurant> restaurantList; // List to hold restuarants
+    private Context context;
 
-    public RestaurantAdapter(List<Restaurant> restaurantList){
+    // Constructor with click listener parameter
+    public RestaurantAdapter(Context context, List<Restaurant> restaurantList) {
+        this.context = context;
         this.restaurantList = restaurantList;
     }
 
@@ -41,10 +50,16 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         holder.description.setText(restaurant.getDescription());
         holder.restaurant_rating.setText(String.format("%.1f", restaurant.getRating()));
 
-        // Load the image using Glide
-        Glide.with(holder.itemView.getContext())
-                .load(restaurant.getLogoImage()) // Replace getImageUrl with your method for fetching the image link
-                .into(holder.iconImage);
+//        // Load the image using Glide
+//        Glide.with(holder.itemView.getContext())
+//                .load(restaurant.getLogoImage()) // Replace getImageUrl with your method for fetching the image link
+//                .into(holder.iconImage);
+        holder.restaurantCard.setOnClickListener(v -> {
+            // Create an Intent to start MenuActivity
+            Intent intent = new Intent(context, MenuActivity.class);
+            intent.putExtra("menuId", restaurant.getMenu());
+            context.startActivity(intent);
+        });
     }
 
     @Override

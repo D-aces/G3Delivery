@@ -44,7 +44,7 @@ public class RestaurantCatalogueActivity extends AppCompatActivity {
             @Override
             public void onDataLoaded(List<Restaurant> restaurants) {
                 restaurantList = restaurants;
-                restaurantAdapter = new RestaurantAdapter(restaurantList);
+                restaurantAdapter = new RestaurantAdapter(RestaurantCatalogueActivity.this, restaurantList);
                 listRestaurants.setAdapter(restaurantAdapter);
             }
 
@@ -54,4 +54,5 @@ public class RestaurantCatalogueActivity extends AppCompatActivity {
             }
         });
     }
+
 }
