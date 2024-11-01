@@ -48,7 +48,6 @@ public class Order {
 
     public void setRestaurant(Restaurant restaurant){
         this.restaurant = restaurant;
-        menu = restaurant.getMenu();
     }
 
     public void selectFoodItem(String name){
