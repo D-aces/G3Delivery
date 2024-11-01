@@ -40,17 +40,17 @@ public class RestaurantCatalogueActivity extends AppCompatActivity {
         listRestaurants.setLayoutManager(new LinearLayoutManager(this));
 
         AppDataSource appDataSource = new AppDataSource();
-        appDataSource.getRestaurants(new DataLoadCallback() {
+        appDataSource.getRestaurants(new DataLoadCallback<List<Restaurant>>() {
             @Override
-            public void onDataLoaded(List<Restaurant> restaurantList) {
-                if (restaurantList != null && !restaurantList.isEmpty()) {
-                    Log.d("RestaurantCatalogueActivity", "Restaurants loaded: " + restaurantList.size());
-                } else {
-                    Log.d("RestaurantCatalogueActivity", "No restaurants loaded");
-                }
-
+            public void onDataLoaded(List<Restaurant> restaurants) {
+                restaurantList = restaurants;
                 restaurantAdapter = new RestaurantAdapter(restaurantList);
                 listRestaurants.setAdapter(restaurantAdapter);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                System.err.println(e);
             }
         });
     }

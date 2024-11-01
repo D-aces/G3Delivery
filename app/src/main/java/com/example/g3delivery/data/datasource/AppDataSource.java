@@ -23,7 +23,7 @@ public class AppDataSource {
 
    // TODO
     // Restaurants Collection Operations
-   public void getRestaurants(DataLoadCallback callback) {
+   public void getRestaurants(DataLoadCallback<List<Restaurant>> callback) {
        CollectionReference restaurantColRef = db.collection("Restaurants");
        restaurantColRef.get()
                .addOnSuccessListener(queryDocumentSnapshots -> {
@@ -67,23 +67,6 @@ public class AppDataSource {
     public void deleteRestaurant() {}
 
     // Menus Collection Operations
-    public void getFoodItemsForMenu(String restaurantId, String menuId) {
-        DocumentReference menuDocRef = db.collection("restaurants")
-                .document(restaurantId)
-                .collection("menus")
-                .document(menuId);
-
-        menuDocRef.collection("foodItems").get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (DocumentSnapshot document : queryDocumentSnapshots) {
-                        FoodItem foodItem = document.toObject(FoodItem.class);
-                        System.out.println("Food Item: " + foodItem.getName());
-                        // Handle the foodItem object here
-                    }
-                })
-                .addOnFailureListener(e -> System.err.println("Error fetching food items: " + e.getMessage()));
-    }
-
     public void getMenuForRestaurant(String menuId) {
         DocumentReference restaurantDocRef = db.collection("menus").document(menuId);
 
@@ -96,14 +79,6 @@ public class AppDataSource {
                 .addOnFailureListener(e -> System.err.println("Error fetching menu: " + e.getMessage()));
     }
 
-    public void createMenu(Menu menu, DocumentReference restaurantDocRef) {
-        DocumentReference menuDocRef = restaurantDocRef.collection("menus").document();
-
-        // Iterate through each FoodItem in the menu and add to Firestore
-        for (FoodItem foodItem : menu.getMenu()) {
-            createFoodItem(foodItem, menuDocRef);
-        }
-    }
     public void updateMenu() {}
     public void deleteMenu() {}
 
