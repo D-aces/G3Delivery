@@ -37,7 +37,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull RestaurantAdapter.RestaurantViewHolder holder, int position) {
-        Restaurant restaurant = restaurantList.get(position);  // Get the current note
+        Restaurant restaurant = restaurantList.get(position);  // Get the current restaurant
         holder.restaurant_name.setText(restaurant.getName());
         holder.restaurant_address.setText(restaurant.getAddress());
         holder.description.setText(restaurant.getDescription());
@@ -48,7 +48,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
 
     @Override
     public int getItemCount() {
-        return 0;
+        return restaurantList.size();
     }
 
     public static class RestaurantViewHolder extends RecyclerView.ViewHolder{

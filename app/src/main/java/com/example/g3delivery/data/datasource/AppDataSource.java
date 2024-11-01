@@ -30,7 +30,8 @@ public class AppDataSource {
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (DocumentSnapshot document : queryDocumentSnapshots) {
                         restaurantList.add(document.toObject(Restaurant.class));
-                        // Handle the restaurant object here
+                        // TODO Remove later
+                        System.out.println(restaurantList.get(restaurantList.size()-1).getName());
                     }
                 })
                 .addOnFailureListener(e -> System.err.println("Error fetching restaurants: " + e.getMessage()));

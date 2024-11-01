@@ -42,13 +42,5 @@ public class RestaurantCatalogueActivity extends AppCompatActivity {
 
         restaurantAdapter = new RestaurantAdapter(restaurantList);
         listRestaurants.setAdapter(restaurantAdapter);
-
-
-
-
-        // TODO: Set up datasource access for the restaurants
-
-
-
     }
 }
