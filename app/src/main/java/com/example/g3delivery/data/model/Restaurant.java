@@ -11,9 +11,10 @@ public class Restaurant {
     private String name;
     private String description;
     private String address;
-    private GeoPoint geolocation;
+    private GeoPoint geoLocation;
     private List<String> labels;
     private DocumentReference menu;
+    private String logoImage;
     private double rating;
 
     public String getName(){
@@ -24,11 +25,12 @@ public class Restaurant {
         return address;
     }
     public GeoPoint getGeolocation(){
-        return geolocation;
+        return geoLocation;
     }
     public List<String> getLabels(){
         return labels;
     }
+    public String getLogoImage(){return logoImage;}
     public DocumentReference getMenu(){
         return menu;
     }
@@ -37,8 +39,9 @@ public class Restaurant {
     public void setName(String name) {this.name = name;}
     public void setDescription(String description) {this.description = description;}
     public void setAddress(String address) {this.address = address;}
-    public void setGeolocation(GeoPoint geolocation) {this.geolocation = geolocation;}
+    public void setGeolocation(GeoPoint geolocation) {this.geoLocation = geolocation;}
     public void setLabels(List<String> labels) {this.labels = labels;}
     public void setMenu(DocumentReference menu) {this.menu = menu;}
     public void setRating(double rating) {this.rating = rating;}
+    public void setLogoImage(String logoImage){this.logoImage = logoImage;}
 }
