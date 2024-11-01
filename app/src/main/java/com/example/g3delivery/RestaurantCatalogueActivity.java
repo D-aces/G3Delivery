@@ -45,7 +45,7 @@ public class RestaurantCatalogueActivity extends AppCompatActivity implements Re
             @Override
             public void onDataLoaded(List<Restaurant> restaurants) {
                 restaurantList = restaurants;
-                restaurantAdapter = new RestaurantAdapter(restaurantList);
+                restaurantAdapter = new RestaurantAdapter(RestaurantCatalogueActivity.this, restaurantList);
                 listRestaurants.setAdapter(restaurantAdapter);
             }
 
@@ -56,12 +56,4 @@ public class RestaurantCatalogueActivity extends AppCompatActivity implements Re
         });
     }
 
-    // Handle restaurant item clicks
-    @Override
-    public void onRestaurantClick(Restaurant restaurant) {
-        // Navigate to the RestaurantMenuActivity when an item is clicked
-        Intent intent = new Intent(this, MenuActivity.class);
-        intent.putExtra("MenuId", restaurant.getMenu());
-        startActivity(intent);
-    }
-}
+

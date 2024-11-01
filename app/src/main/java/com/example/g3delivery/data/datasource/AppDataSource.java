@@ -68,50 +68,22 @@ public class AppDataSource {
     public void deleteRestaurant() {}
 
     // Menus Collection Operations
-    public void getFoodItemsForMenu(String restaurantId, String menuId) {
-        DocumentReference menuDocRef = db.collection("restaurants")
-                .document(restaurantId)
-                .collection("menus")
-                .document(menuId);
 
-        menuDocRef.collection("foodItems").get()
+    
+
+    public void getMenuForRestaurant(String menuId) {
+        DocumentReference restaurantDocRef = db.collection("menus").document(menuId);
+
+        restaurantDocRef.collection("menus").get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (DocumentSnapshot document : queryDocumentSnapshots) {
-                        FoodItem foodItem = document.toObject(FoodItem.class);
-                        System.out.println("Food Item: " + foodItem.getName());
-                        // Handle the foodItem object here
-                    }
-                })
-                .addOnFailureListener(e -> System.err.println("Error fetching food items: " + e.getMessage()));
-    }
-
-    public void getMenuForRestaurant(String restaurantId, String menuId, DataLoadCallback<Menu> callback) {
-        DocumentReference menuDocRef = db.collection("restaurants")
-                .document(restaurantId)
-                .collection("menus")
-                .document(menuId);
-
-        menuDocRef.get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        Menu menu = documentSnapshot.toObject(Menu.class);
-                        callback.onDataLoaded(menu); // Pass the loaded menu
-                    } else {
-                        callback.onError(new Exception("Menu not found"));
+                        Menu menu = document.toObject(Menu.class);
                     }
                 })
                 .addOnFailureListener(callback::onError);
     }
 
 
-    public void createMenu(Menu menu, DocumentReference restaurantDocRef) {
-        DocumentReference menuDocRef = restaurantDocRef.collection("menus").document();
-
-        // Iterate through each FoodItem in the menu and add to Firestore
-        for (FoodItem foodItem : menu.getItems().values()) {
-            createFoodItem(foodItem, menuDocRef);
-        }
-    }
     public void updateMenu() {}
     public void deleteMenu() {}
 
