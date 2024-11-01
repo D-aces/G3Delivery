@@ -1,9 +1,10 @@
 package com.example.g3delivery;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -18,17 +19,17 @@ import com.example.g3delivery.data.model.Restaurant;
 
 import java.util.List;
 
-public class RestaurantCatalogueActivity extends AppCompatActivity {
+public class RestaurantCatalogueActivity extends AppCompatActivity implements RestaurantAdapter.OnRestaurantClickListener {
     private RecyclerView listRestaurants;
     private RestaurantAdapter restaurantAdapter;
     private List<Restaurant> restaurantList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO: Set up the list of restaurants with a recycler view
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_restaurant_catalogue);
+
+        // Set up system bar insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -55,4 +56,4 @@ public class RestaurantCatalogueActivity extends AppCompatActivity {
         });
     }
 
-}
+

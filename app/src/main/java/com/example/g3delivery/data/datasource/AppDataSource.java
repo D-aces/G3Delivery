@@ -39,6 +39,7 @@ public class AppDataSource {
                });
    }
 
+
     public void createRestaurant(Restaurant restaurant) {
         // Auto-generate ID for each restaurant
         DocumentReference restaurantDocRef = db.collection("restaurants").document();
@@ -67,6 +68,9 @@ public class AppDataSource {
     public void deleteRestaurant() {}
 
     // Menus Collection Operations
+
+    
+
     public void getMenuForRestaurant(String menuId) {
         DocumentReference restaurantDocRef = db.collection("menus").document(menuId);
 
@@ -76,8 +80,9 @@ public class AppDataSource {
                         Menu menu = document.toObject(Menu.class);
                     }
                 })
-                .addOnFailureListener(e -> System.err.println("Error fetching menu: " + e.getMessage()));
+                .addOnFailureListener(callback::onError);
     }
+
 
     public void updateMenu() {}
     public void deleteMenu() {}
