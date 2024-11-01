@@ -1,8 +1,6 @@
 package com.example.g3delivery.data.datasource;
 
-import com.example.g3delivery.data.model.Restaurant;
-import java.util.List;
-
-public interface DataLoadCallback {
-    void onDataLoaded(List<Restaurant> restaurantList);
+public interface DataLoadCallback<T> {
+    void onDataLoaded(T data);  // Generic data type
+    void onError(Exception e);
 }

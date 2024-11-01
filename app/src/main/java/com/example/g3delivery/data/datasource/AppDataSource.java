@@ -23,8 +23,8 @@ public class AppDataSource {
 
    // TODO
     // Restaurants Collection Operations
-   public void getRestaurants(DataLoadCallback callback) {
-       CollectionReference restaurantColRef = db.collection("Restaurants");
+   public void getRestaurants(DataLoadCallback<List<Restaurant>> callback) {
+       CollectionReference restaurantColRef = db.collection("restaurants");
        restaurantColRef.get()
                .addOnSuccessListener(queryDocumentSnapshots -> {
                    List<Restaurant> restaurantList = new ArrayList<>();
@@ -33,11 +33,9 @@ public class AppDataSource {
                    }
                    callback.onDataLoaded(restaurantList);
                })
-               .addOnFailureListener(e -> {
-                   System.err.println("Error fetching restaurants: " + e.getMessage());
-                   callback.onDataLoaded(new ArrayList<>()); // Return an empty list on failure
-               });
+               .addOnFailureListener(callback::onError);
    }
+
 
     public void createRestaurant(Restaurant restaurant) {
         // Auto-generate ID for each restaurant
@@ -84,25 +82,30 @@ public class AppDataSource {
                 .addOnFailureListener(e -> System.err.println("Error fetching food items: " + e.getMessage()));
     }
 
-    public void getMenuForRestaurant(String restaurantId) {
-        DocumentReference restaurantDocRef = db.collection("restaurants").document(restaurantId);
+    public void getMenuForRestaurant(String restaurantId, String menuId, DataLoadCallback<Menu> callback) {
+        DocumentReference menuDocRef = db.collection("restaurants")
+                .document(restaurantId)
+                .collection("menus")
+                .document(menuId);
 
-        restaurantDocRef.collection("menus").get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (DocumentSnapshot document : queryDocumentSnapshots) {
-                        Menu menu = document.toObject(Menu.class);
-                        System.out.println("Menu retrieved for restaurant: " + restaurantId);
-                        // Handle the menu object here
+        menuDocRef.get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        Menu menu = documentSnapshot.toObject(Menu.class);
+                        callback.onDataLoaded(menu); // Pass the loaded menu
+                    } else {
+                        callback.onError(new Exception("Menu not found"));
                     }
                 })
-                .addOnFailureListener(e -> System.err.println("Error fetching menu: " + e.getMessage()));
+                .addOnFailureListener(callback::onError);
     }
+
 
     public void createMenu(Menu menu, DocumentReference restaurantDocRef) {
         DocumentReference menuDocRef = restaurantDocRef.collection("menus").document();
 
         // Iterate through each FoodItem in the menu and add to Firestore
-        for (FoodItem foodItem : menu.getMenu()) {
+        for (FoodItem foodItem : menu.getItems().values()) {
             createFoodItem(foodItem, menuDocRef);
         }
     }

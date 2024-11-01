@@ -42,7 +42,9 @@ public class RestaurantCatalogueActivity extends AppCompatActivity implements Re
 
         // Load restaurant data
         AppDataSource appDataSource = new AppDataSource();
-        appDataSource.getRestaurants(new DataLoadCallback() {
+
+        // Implement both methods in DataLoadCallback
+        appDataSource.getRestaurants(new DataLoadCallback<List<Restaurant>>() {
             @Override
             public void onDataLoaded(List<Restaurant> loadedRestaurants) {
                 if (loadedRestaurants != null && !loadedRestaurants.isEmpty()) {
@@ -54,6 +56,12 @@ public class RestaurantCatalogueActivity extends AppCompatActivity implements Re
                 restaurantList = loadedRestaurants;
                 restaurantAdapter = new RestaurantAdapter(restaurantList, RestaurantCatalogueActivity.this);
                 listRestaurants.setAdapter(restaurantAdapter);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                // Log the error or handle it appropriately
+                Log.e("RestaurantCatalogueActivity", "Error loading restaurants: " + e.getMessage());
             }
         });
     }
