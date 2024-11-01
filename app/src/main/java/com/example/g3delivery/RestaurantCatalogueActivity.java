@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.g3delivery.adapter.RestaurantAdapter;
+import com.example.g3delivery.data.datasource.AppDataSource;
 import com.example.g3delivery.data.model.Restaurant;
 
 import java.util.List;
@@ -22,7 +23,6 @@ public class RestaurantCatalogueActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO: Set up an adapter to display each restaurant
         // TODO: Set up the list of restaurants with a recycler view
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -37,8 +37,17 @@ public class RestaurantCatalogueActivity extends AppCompatActivity {
         listRestaurants = findViewById(R.id.listRestaurant);
         listRestaurants.setLayoutManager(new LinearLayoutManager((this)));
 
+        AppDataSource appDataSource = new AppDataSource();
+        restaurantList = appDataSource.getRestaurants();
+
+        restaurantAdapter = new RestaurantAdapter(restaurantList);
+        listRestaurants.setAdapter(restaurantAdapter);
+
+
+
+
         // TODO: Set up datasource access for the restaurants
-        // restaurantList = ;
+
 
 
     }

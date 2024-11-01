@@ -9,7 +9,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AppDataSource {
@@ -20,18 +22,18 @@ public class AppDataSource {
     }
 
     // Restaurants Collection Operations
-    public void getRestaurants() {
-        CollectionReference restaurantColRef = db.collection("restaurants");
-
+    public List<Restaurant> getRestaurants() {
+        CollectionReference restaurantColRef = db.collection("Restaurants");
+        List<Restaurant> restaurantList = new ArrayList<>();
         restaurantColRef.get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (DocumentSnapshot document : queryDocumentSnapshots) {
-                        Restaurant restaurant = document.toObject(Restaurant.class);
-                        System.out.println("Restaurant: " + restaurant.getName());
+                        restaurantList.add(document.toObject(Restaurant.class));
                         // Handle the restaurant object here
                     }
                 })
                 .addOnFailureListener(e -> System.err.println("Error fetching restaurants: " + e.getMessage()));
+        return restaurantList;
     }
 
     public void createRestaurant(Restaurant restaurant) {
