@@ -23,20 +23,21 @@ public class AppDataSource {
 
    // TODO
     // Restaurants Collection Operations
-    public List<Restaurant> getRestaurants() {
-        CollectionReference restaurantColRef = db.collection("Restaurants");
-        List<Restaurant> restaurantList = new ArrayList<>();
-        restaurantColRef.get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (DocumentSnapshot document : queryDocumentSnapshots) {
-                        restaurantList.add(document.toObject(Restaurant.class));
-                        // TODO Remove later
-                        System.out.println(restaurantList.get(restaurantList.size()-1).getName());
-                    }
-                })
-                .addOnFailureListener(e -> System.err.println("Error fetching restaurants: " + e.getMessage()));
-        return restaurantList;
-    }
+   public void getRestaurants(DataLoadCallback callback) {
+       CollectionReference restaurantColRef = db.collection("Restaurants");
+       restaurantColRef.get()
+               .addOnSuccessListener(queryDocumentSnapshots -> {
+                   List<Restaurant> restaurantList = new ArrayList<>();
+                   for (DocumentSnapshot document : queryDocumentSnapshots) {
+                       restaurantList.add(document.toObject(Restaurant.class));
+                   }
+                   callback.onDataLoaded(restaurantList);
+               })
+               .addOnFailureListener(e -> {
+                   System.err.println("Error fetching restaurants: " + e.getMessage());
+                   callback.onDataLoaded(new ArrayList<>()); // Return an empty list on failure
+               });
+   }
 
     public void createRestaurant(Restaurant restaurant) {
         // Auto-generate ID for each restaurant

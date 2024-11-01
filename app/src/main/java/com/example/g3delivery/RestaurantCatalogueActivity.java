@@ -1,6 +1,7 @@
 package com.example.g3delivery;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.g3delivery.adapter.RestaurantAdapter;
 import com.example.g3delivery.data.datasource.AppDataSource;
+import com.example.g3delivery.data.datasource.DataLoadCallback;
 import com.example.g3delivery.data.model.Restaurant;
 
 import java.util.List;
@@ -35,12 +37,21 @@ public class RestaurantCatalogueActivity extends AppCompatActivity {
 
         // Set up recycler view
         listRestaurants = findViewById(R.id.listRestaurant);
-        listRestaurants.setLayoutManager(new LinearLayoutManager((this)));
+        listRestaurants.setLayoutManager(new LinearLayoutManager(this));
 
         AppDataSource appDataSource = new AppDataSource();
-        restaurantList = appDataSource.getRestaurants();
+        appDataSource.getRestaurants(new DataLoadCallback() {
+            @Override
+            public void onDataLoaded(List<Restaurant> restaurantList) {
+                if (restaurantList != null && !restaurantList.isEmpty()) {
+                    Log.d("RestaurantCatalogueActivity", "Restaurants loaded: " + restaurantList.size());
+                } else {
+                    Log.d("RestaurantCatalogueActivity", "No restaurants loaded");
+                }
 
-        restaurantAdapter = new RestaurantAdapter(restaurantList);
-        listRestaurants.setAdapter(restaurantAdapter);
+                restaurantAdapter = new RestaurantAdapter(restaurantList);
+                listRestaurants.setAdapter(restaurantAdapter);
+            }
+        });
     }
 }
