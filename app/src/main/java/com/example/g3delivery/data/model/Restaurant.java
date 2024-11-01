@@ -7,6 +7,7 @@ public class Restaurant {
     private double[] geolocation;
     private String[] labels;
     private Menu menu;
+    private double rating;
 
     public String getName(){
         return name;
@@ -30,5 +31,9 @@ public class Restaurant {
 
     public Menu getMenu(){
         return menu;
+    }
+
+    public double getRating(){
+        return rating;
     }
 }
