@@ -1,11 +1,14 @@
 package com.example.g3delivery.data.model;
 
+import java.util.List;
+
 public class Menu {
-    // An array of foodItems
-    private FoodItem[] menu;
+
+    // An list of foodItems
+    private List<FoodItem> menu;
 
     // Get the full menu of food items
-    public FoodItem[] getMenu(){
+    public List<FoodItem> getMenu(){
         return menu;
     }
 

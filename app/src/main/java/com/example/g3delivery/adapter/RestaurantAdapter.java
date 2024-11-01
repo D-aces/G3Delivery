@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+//import com.bumptech.glide.Glide;
 import com.example.g3delivery.R;
 import com.example.g3delivery.data.model.Restaurant;
 import java.util.List;
@@ -19,10 +19,13 @@ import java.util.List;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder> {
 
-    private List<Restaurant> restaurantList; // List to hold restuarants
+    private List<Restaurant> restaurantList;
+    private OnRestaurantClickListener clickListener;
 
-    public RestaurantAdapter(List<Restaurant> restaurantList){
+    // Constructor with click listener parameter
+    public RestaurantAdapter(List<Restaurant> restaurantList, OnRestaurantClickListener clickListener) {
         this.restaurantList = restaurantList;
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -35,16 +38,19 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull RestaurantAdapter.RestaurantViewHolder holder, int position) {
-        Restaurant restaurant = restaurantList.get(position);  // Get the current restaurant
+        Restaurant restaurant = restaurantList.get(position);
         holder.restaurant_name.setText(restaurant.getName());
         holder.restaurant_address.setText(restaurant.getAddress());
         holder.description.setText(restaurant.getDescription());
         holder.restaurant_rating.setText(String.format("%.1f", restaurant.getRating()));
 
-        // Load the image using Glide
-        Glide.with(holder.itemView.getContext())
-                .load(restaurant.getLogoImage()) // Replace getImageUrl with your method for fetching the image link
-                .into(holder.iconImage);
+        // Uncomment and configure Glide if needed
+        // Glide.with(holder.itemView.getContext())
+        //      .load(restaurant.getLogoImage())
+        //      .into(holder.iconImage);
+
+        // Set the click listener on the restaurantCard
+        holder.restaurantCard.setOnClickListener(v -> clickListener.onRestaurantClick(restaurant));
     }
 
     @Override
@@ -52,7 +58,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         return restaurantList.size();
     }
 
-    public static class RestaurantViewHolder extends RecyclerView.ViewHolder{
+    public static class RestaurantViewHolder extends RecyclerView.ViewHolder {
         LinearLayout restaurantCard;
         TextView restaurant_name, restaurant_address, description, labels, restaurant_rating;
         ImageView iconImage;
@@ -67,6 +73,10 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
             iconImage = itemView.findViewById(R.id.IconImage);
             restaurant_rating = itemView.findViewById(R.id.restaurant_rating);
         }
+    }
 
+    // Interface for handling clicks
+    public interface OnRestaurantClickListener {
+        void onRestaurantClick(Restaurant restaurant);
     }
 }
