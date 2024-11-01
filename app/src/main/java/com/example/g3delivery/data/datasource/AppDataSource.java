@@ -24,7 +24,7 @@ public class AppDataSource {
    // TODO
     // Restaurants Collection Operations
    public void getRestaurants(DataLoadCallback<List<Restaurant>> callback) {
-       CollectionReference restaurantColRef = db.collection("restaurants");
+       CollectionReference restaurantColRef = db.collection("Restaurants");
        restaurantColRef.get()
                .addOnSuccessListener(queryDocumentSnapshots -> {
                    List<Restaurant> restaurantList = new ArrayList<>();
@@ -33,7 +33,10 @@ public class AppDataSource {
                    }
                    callback.onDataLoaded(restaurantList);
                })
-               .addOnFailureListener(callback::onError);
+               .addOnFailureListener(e -> {
+                   System.err.println("Error fetching restaurants: " + e.getMessage());
+                   callback.onDataLoaded(new ArrayList<>()); // Return an empty list on failure
+               });
    }
 
 
