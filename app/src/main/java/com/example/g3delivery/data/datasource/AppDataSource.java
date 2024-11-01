@@ -84,15 +84,13 @@ public class AppDataSource {
                 .addOnFailureListener(e -> System.err.println("Error fetching food items: " + e.getMessage()));
     }
 
-    public void getMenuForRestaurant(String restaurantId) {
-        DocumentReference restaurantDocRef = db.collection("restaurants").document(restaurantId);
+    public void getMenuForRestaurant(String menuId) {
+        DocumentReference restaurantDocRef = db.collection("menus").document(menuId);
 
         restaurantDocRef.collection("menus").get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (DocumentSnapshot document : queryDocumentSnapshots) {
                         Menu menu = document.toObject(Menu.class);
-                        System.out.println("Menu retrieved for restaurant: " + restaurantId);
-                        // Handle the menu object here
                     }
                 })
                 .addOnFailureListener(e -> System.err.println("Error fetching menu: " + e.getMessage()));

@@ -8,10 +8,4 @@ public class Menu {
     public FoodItem[] getMenu(){
         return menu;
     }
-
-    // Get a single food item
-    public FoodItem getFoodItem(String name){
-        // query for foodItem
-        return null;
-    }
 }

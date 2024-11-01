@@ -51,7 +51,7 @@ public class Order {
     }
 
     public void selectFoodItem(String name){
-        selectedFoodItems.add(menu.getFoodItem(name));
+        //selectedFoodItems.add(menu.getFoodItem(name));
     }
 
     // TODO Add calculation logic for the order subtotal method
