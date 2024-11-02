@@ -12,18 +12,13 @@ import com.example.g3delivery.adapter.MenuItemAdapter;
 import com.example.g3delivery.data.datasource.AppDataSource;
 import com.example.g3delivery.data.model.FoodItem;
 import com.example.g3delivery.data.model.Menu;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.example.g3delivery.data.datasource.DataLoadCallback;
-
 
 public class MenuActivity extends AppCompatActivity {
 
     private RecyclerView menuRecyclerView;
     private MenuItemAdapter menuItemAdapter;
-    private List<FoodItem> foodItems = new ArrayList<>(); // Initialize to avoid null references
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,39 +32,34 @@ public class MenuActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Retrieve the MenuId from the Intent extras
-        String menuId = getIntent().getStringExtra("MenuId");
-        String restaurantId = getIntent().getStringExtra("RestaurantId"); // Assuming you also pass RestaurantId
+        // Retrieve the menuId from the Intent extras
+        String menuId = getIntent().getStringExtra("menuId");
+        System.out.println(menuId);
 
         // Initialize RecyclerView and Adapter
         menuRecyclerView = findViewById(R.id.menu_recycler_view);
         menuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        menuItemAdapter = new MenuItemAdapter(foodItems);
-        menuRecyclerView.setAdapter(menuItemAdapter);
 
         // Load menu items from Firestore
-        loadMenuItems(restaurantId, menuId);
+        loadMenuItems(menuId);
     }
 
-    private void loadMenuItems(String restaurantId, String menuId) {
+    private void loadMenuItems(String menuId) {
         AppDataSource db = new AppDataSource();
 
         // Fetch menu data from Firestore
-        db.getMenuForRestaurant(restaurantId, menuId, new DataLoadCallback<Menu>() {
+        db.getMenuForRestaurant(menuId, new DataLoadCallback<Menu>() {
             @Override
-            public void onDataLoaded(Menu menu) {
-                // Update the list of food items
-                foodItems.clear();
-                foodItems.addAll(menu.getItems().values());
-                menuItemAdapter.notifyDataSetChanged(); // Notify adapter of data change
+            public void onDataLoaded(Menu data) {
+                menu = data;
+                menuItemAdapter = new MenuItemAdapter(menu.getItems());
+                menuRecyclerView.setAdapter(menuItemAdapter);
             }
 
             @Override
             public void onError(Exception e) {
-                // Handle errors, e.g., show a message to the user
-                System.err.println("Error loading menu items: " + e.getMessage());
+                System.err.println(e);
             }
         });
     }
-
 }

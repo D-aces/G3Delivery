@@ -68,41 +68,30 @@ public class AppDataSource {
     public void deleteRestaurant() {}
 
     // Menus Collection Operations
+    public void getMenuForRestaurant(String menuId, DataLoadCallback<Menu> callback) {
+        DocumentReference menuDocRef = db.collection("Menus").document(menuId);
 
-    
-
-    public void getMenuForRestaurant(String menuId) {
-        DocumentReference restaurantDocRef = db.collection("menus").document(menuId);
-
-        restaurantDocRef.collection("menus").get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (DocumentSnapshot document : queryDocumentSnapshots) {
-                        Menu menu = document.toObject(Menu.class);
+        menuDocRef.get()
+                .addOnSuccessListener(document -> {
+                    if (document.exists()) {
+                        // Assuming the menu document contains only the menu items
+                        Map<String, FoodItem> items = document.toObject(Menu.class).getItems();
+                        Menu menu = new Menu(items); // Create a new Menu object with the items
+                        callback.onDataLoaded(menu); // Pass the menu to the callback
+                    } else {
+                        System.err.println("No such menu found!");
                     }
                 })
-                .addOnFailureListener(callback::onError);
+                .addOnFailureListener(e -> {
+                    System.err.println("Error fetching menu: " + e.getMessage());
+                    callback.onError(e);
+                });
     }
-
 
     public void updateMenu() {}
     public void deleteMenu() {}
 
     // FoodItems Collection Operations
-    public void createFoodItem(FoodItem foodItem, DocumentReference menuDocRef) {
-        DocumentReference foodItemDocRef = menuDocRef.collection("foodItems").document();
-
-        Map<String, Object> foodItemData = new HashMap<>();
-        foodItemData.put("name", foodItem.getName());
-        foodItemData.put("category", foodItem.getCategory());
-        foodItemData.put("customizations", foodItem.getCustomizations());
-        foodItemData.put("price", foodItem.getPrice());
-
-        foodItemDocRef.set(foodItemData)
-                .addOnSuccessListener(aVoid -> System.out.println("Food item added with ID: " + foodItemDocRef.getId()))
-                .addOnFailureListener(e -> System.err.println("Error adding food item: " + e.getMessage()));
-    }
-
-    // Orders Collection Operations
     public void createOrder(Order order) {
         DocumentReference orderDocRef = db.collection("orders").document();
 
@@ -129,7 +118,7 @@ public class AppDataSource {
         foodItemData.put("name", item.getName());
         foodItemData.put("category", item.getCategory());
         foodItemData.put("price", item.getPrice());
-        foodItemData.put("customizations", item.getCustomizations());
+        //foodItemData.put("customizations", item.getCustomization());
 
         orderDocRef.collection("foodItems").document().set(foodItemData)
                 .addOnSuccessListener(aVoid -> System.out.println("Food item added to order"))

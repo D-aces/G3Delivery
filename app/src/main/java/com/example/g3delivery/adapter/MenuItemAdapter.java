@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.g3delivery.R;
 import com.example.g3delivery.data.model.FoodItem;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,8 +19,9 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
 
     private List<FoodItem> foodItems;
 
-    public MenuItemAdapter(List<FoodItem> foodItems) {
-        this.foodItems = foodItems;
+    // Adapter constructor now takes a Map of food items
+    public MenuItemAdapter(Map<String, FoodItem> items) {
+        this.foodItems = new ArrayList<>(items.values());
     }
 
     @NonNull
@@ -34,10 +36,10 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
         FoodItem item = foodItems.get(position);
         holder.foodName.setText(item.getName());
         holder.foodPrice.setText("$" + item.getPrice());
-        holder.foodCategory.setText(item.getCategory());
+        //holder.foodCategory.setText(item.getCategory());
 
         // Format customizations as a string and set it in the TextView
-        holder.foodDescription.setText(formatCustomizations(item.getCustomizations()));
+//        holder.foodDescription.setText(formatCustomizations(item.getCustomizations()));
     }
 
     @Override
@@ -46,15 +48,15 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
     }
 
     // Helper method to format customizations
-    private String formatCustomizations(Map<String, Double> customizations) {
-        if (customizations == null || customizations.isEmpty()) {
-            return "No customizations available";
-        }
-
-        return customizations.entrySet().stream()
-                .map(entry -> entry.getKey() + " - $" + entry.getValue())
-                .collect(Collectors.joining(", "));
-    }
+//    private String formatCustomizations(Map<String, Double> customizations) {
+//        if (customizations == null || customizations.isEmpty()) {
+//            return "No customizations available";
+//        }
+//
+//        return customizations.entrySet().stream()
+//                .map(entry -> entry.getKey() + " - $" + entry.getValue())
+//                .collect(Collectors.joining(", "));
+//    }
 
     public static class MenuItemViewHolder extends RecyclerView.ViewHolder {
         TextView foodName, foodPrice, foodCategory, foodDescription;
@@ -64,7 +66,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
             foodName = itemView.findViewById(R.id.food_name);
             foodPrice = itemView.findViewById(R.id.food_price);
             //foodCategory = itemView.findViewById(R.id.food_category);
-            foodDescription = itemView.findViewById(R.id.food_description); // Ensure this ID matches your XML
+            foodDescription = itemView.findViewById(R.id.food_description);
         }
     }
 }

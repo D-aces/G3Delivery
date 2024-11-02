@@ -31,8 +31,8 @@ public class Restaurant {
         return labels;
     }
     public String getLogoImage(){return logoImage;}
-    public String getMenu(){
-        return menu.toString();
+    public DocumentReference getMenu(){
+        return menu;
     }
     public double getRating(){return rating;}
 
