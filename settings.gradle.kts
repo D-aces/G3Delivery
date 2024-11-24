@@ -19,13 +19,6 @@ dependencyResolutionManagement {
         mavenCentral()
         maven {
             url = uri("https://api.mapbox.com/downloads/v2/releases/maven")
-            authentication {
-                create<BasicAuthentication>("basic")
-            }
-            credentials {
-                username = "mapbox" // Always use 'mapbox' as username
-                password = (extra["MAPBOX_DOWNLOADS_TOKEN"] as? String) ?: ""
-            }
         }
     }
 }
