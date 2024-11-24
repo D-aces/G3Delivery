@@ -52,6 +52,8 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onDataLoaded(Menu data) {
                 menu = data;
+                System.out.println(menu.getItems());
+                System.out.println(menu.getItems().get("French Fries").getPrice());
                 menuItemAdapter = new MenuItemAdapter(menu.getItems());
                 menuRecyclerView.setAdapter(menuItemAdapter);
             }
