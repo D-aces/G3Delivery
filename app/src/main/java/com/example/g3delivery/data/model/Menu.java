@@ -5,7 +5,6 @@ import java.util.Map;
 
 public class Menu {
 
-    private String menuName; // For example, "Tim Hortons Menu"
     private Map<String, FoodItem> items; // Maps each item name to a FoodItem object
 
     // Empty constructor for Firestore deserialization
@@ -14,20 +13,11 @@ public class Menu {
     }
 
     // Constructor
-    public Menu(String menuName, Map<String, FoodItem> items) {
-        this.menuName = menuName;
+    public Menu(Map<String, FoodItem> items) {
         this.items = items;
     }
 
     // Getters and Setters
-    public String getMenuName() {
-        return menuName;
-    }
-
-    public void setMenuName(String menuName) {
-        this.menuName = menuName;
-    }
-
     public Map<String, FoodItem> getItems() {
         return items;
     }

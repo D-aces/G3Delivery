@@ -19,7 +19,7 @@ import com.example.g3delivery.data.model.Restaurant;
 
 import java.util.List;
 
-public class RestaurantCatalogueActivity extends AppCompatActivity implements RestaurantAdapter.OnRestaurantClickListener {
+public class RestaurantCatalogueActivity extends AppCompatActivity {
     private RecyclerView listRestaurants;
     private RestaurantAdapter restaurantAdapter;
     private List<Restaurant> restaurantList;
@@ -55,5 +55,6 @@ public class RestaurantCatalogueActivity extends AppCompatActivity implements Re
             }
         });
     }
+}
 
 

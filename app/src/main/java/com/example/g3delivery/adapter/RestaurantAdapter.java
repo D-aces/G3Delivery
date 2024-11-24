@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.bumptech.glide.Glide;
 import com.example.g3delivery.MenuActivity;
 import com.example.g3delivery.R;
 import com.example.g3delivery.RestaurantCatalogueActivity;
@@ -59,7 +58,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         holder.restaurantCard.setOnClickListener(v -> {
             // Create an Intent to start MenuActivity
             Intent intent = new Intent(context, MenuActivity.class);
-            intent.putExtra("menuId", restaurant.getMenu());
+            intent.putExtra("menuId", restaurant.getMenu().getId());
+            System.out.println(restaurant.getMenu());
             context.startActivity(intent);
         });
 
