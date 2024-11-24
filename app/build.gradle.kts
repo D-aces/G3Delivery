@@ -36,7 +36,7 @@ android {
 }
 
 dependencies {
-
+    implementation("com.mapbox.navigationcore:navigation:3.5.2")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
