@@ -35,7 +35,6 @@ public class MenuActivity extends AppCompatActivity {
             // Navigate back to RestaurantCatalogueActivity
             Intent intent = new Intent(MenuActivity.this, RestaurantCatalogueActivity.class);
             startActivity(intent);
-            finish(); // End the current activity
         });
 
         // Set up system bar insets
@@ -65,8 +64,6 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onDataLoaded(Menu data) {
                 menu = data;
-                System.out.println(menu.getItems());
-                System.out.println(menu.getItems().get("French Fries").getPrice());
                 menuItemAdapter = new MenuItemAdapter(menu.getItems());
                 menuRecyclerView.setAdapter(menuItemAdapter);
             }
