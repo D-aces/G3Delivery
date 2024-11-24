@@ -1,6 +1,9 @@
 package com.example.g3delivery;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -24,6 +27,16 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        // Reference the back button
+        ImageButton backButton = findViewById(R.id.back_button);
+
+        backButton.setOnClickListener(v -> {
+            // Navigate back to RestaurantCatalogueActivity
+            Intent intent = new Intent(MenuActivity.this, RestaurantCatalogueActivity.class);
+            startActivity(intent);
+            finish(); // End the current activity
+        });
 
         // Set up system bar insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
