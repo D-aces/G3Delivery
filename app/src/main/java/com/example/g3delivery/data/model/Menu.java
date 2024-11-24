@@ -5,7 +5,8 @@ import java.util.Map;
 
 public class Menu {
 
-    private Map<String, FoodItem> items; // Maps each item name to a FoodItem object
+    // Maps each item name to a FoodItem object
+    private Map<String, FoodItem> items;
 
     // Empty constructor for Firestore deserialization
     public Menu() {
