@@ -29,10 +29,13 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
 
     private List<FoodItem> foodItems;
 
-    // Adapter constructor now takes a Map of food items
-    public MenuItemAdapter(Map<String, FoodItem> items) {
+    private Order order;
+
+    public MenuItemAdapter(Map<String, FoodItem> items, Order order) {
         this.foodItems = new ArrayList<>(items.values());
+        this.order = order;
     }
+
 
     @NonNull
     @Override
@@ -47,45 +50,37 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
         FoodItem item = foodItems.get(position);
         holder.foodName.setText(item.getName());
         holder.foodPrice.setText("$" + item.getPrice());
-        // The New Order :D
-        Order order = new Order();
+
         AtomicInteger quantity = new AtomicInteger();
 
-        String foodName = item.getName().toLowerCase().replace(" ", "_"); // Convert to drawable-friendly format
-        // Retrieve the resource ID for the corresponding drawable
+        String foodName = item.getName().toLowerCase().replace(" ", "_");
         int imageResId = holder.itemView.getContext().getResources().getIdentifier(
                 foodName, "drawable", holder.itemView.getContext().getPackageName());
 
         if (imageResId != 0) {
-            // If the image exists, decode it to a Bitmap and set it
             Bitmap bitmap = BitmapFactory.decodeResource(holder.itemView.getContext().getResources(), imageResId);
             holder.foodImage.setImageBitmap(bitmap);
         } else {
-            // If the image doesn't exist, set a default image
             holder.foodImage.setImageResource(R.drawable.cookie);
         }
 
-        // Set the food description
         holder.foodDescription.setText(item.getDescription());
 
-        // Convert the value of the counter to an integer and check if it's greater than 0
         holder.minusButton.setOnClickListener(v -> {
             if (quantity.intValue() > 0) {
                 quantity.getAndDecrement();
                 holder.itemQuantity.setText(String.valueOf(quantity.get()));
-                // Get value of the atomic integer and passes it to addItemToOrder
                 order.removeItemFromOrder(item, quantity.intValue());
             }
         });
 
-
         holder.plusButton.setOnClickListener(v -> {
             quantity.getAndIncrement();
             holder.itemQuantity.setText(String.valueOf(quantity.get()));
-            // Get value of the atomic integer and passes it to addItemToOrder
             order.addItemToOrder(item, quantity.intValue());
         });
     }
+
 
     @Override
     public int getItemCount() {

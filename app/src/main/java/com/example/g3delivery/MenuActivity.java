@@ -17,12 +17,15 @@ import com.example.g3delivery.data.datasource.AppDataSource;
 import com.example.g3delivery.data.model.FoodItem;
 import com.example.g3delivery.data.model.Menu;
 import com.example.g3delivery.data.datasource.DataLoadCallback;
+import com.example.g3delivery.data.model.Order;
+import com.example.g3delivery.data.model.Restaurant;
 
 public class MenuActivity extends AppCompatActivity {
 
     private RecyclerView menuRecyclerView;
     private MenuItemAdapter menuItemAdapter;
     private Menu menu;
+    private Order order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +55,12 @@ public class MenuActivity extends AppCompatActivity {
         // Initialize RecyclerView and Adapter
         menuRecyclerView = findViewById(R.id.menu_recycler_view);
         menuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         // Load menu items from Firestore
         loadMenuItems(menuId);
+        order = new Order();
+        Intent intent = getIntent();
+        Restaurant rest = intent.getParcelableExtra("Restaurant");
+        order.setRestaurant(rest);
     }
 
     private void loadMenuItems(String menuId) {
@@ -65,7 +71,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onDataLoaded(Menu data) {
                 menu = data;
-                menuItemAdapter = new MenuItemAdapter(menu.getItems());
+                menuItemAdapter = new MenuItemAdapter(menu.getItems(), order);
                 menuRecyclerView.setAdapter(menuItemAdapter);
             }
 
@@ -79,6 +85,7 @@ public class MenuActivity extends AppCompatActivity {
     public void openCart(View view){
             // Navigate back to Cart Activity
             Intent intent = new Intent(MenuActivity.this, CheckoutActivity.class);
+            intent.putExtra("Order", order);
             startActivity(intent);
     }
 }

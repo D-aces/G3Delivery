@@ -59,7 +59,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
             // Create an Intent to start MenuActivity
             Intent intent = new Intent(context, MenuActivity.class);
             intent.putExtra("menuId", restaurant.getMenu().getId());
-            System.out.println(restaurant.getMenu());
+            intent.putExtra("Restaurant",restaurant);
+
             context.startActivity(intent);
         });
 

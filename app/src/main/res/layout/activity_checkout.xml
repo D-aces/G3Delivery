@@ -49,10 +49,10 @@ tools:context=".RestaurantCatalogueActivity">
             android:padding="16dp">
             <!-- Order Items -->
             <TextView
-                android:id="@+id/restraunt"
+                android:id="@+id/restaurant_name"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-                android:text="Mcdonalds"
+                android:text=""
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
@@ -86,27 +86,27 @@ tools:context=".RestaurantCatalogueActivity">
                 android:id="@+id/subtotal_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Subtotal: $5.98" />
+                android:text="Subtotal: $" />
 
             <!-- Additional Fees (Taxes, Discounts) -->
             <TextView
                 android:id="@+id/taxes_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tax: $0.77" />
+                android:text="Tax: $" />
 
             <TextView
                 android:id="@+id/delivery_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Delivery: $2.00" />
+                android:text="Delivery: $" />
 
             <!-- Total Amount -->
             <TextView
                 android:id="@+id/total_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Total: $8.75"
+                android:text="Total: $"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

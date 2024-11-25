@@ -1,12 +1,17 @@
 package com.example.g3delivery.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
-public class Order {
-    // TODO Add user specific logic here
+public class Order implements Parcelable {
     // private user
     private Restaurant restaurant;
     private Menu menu;
@@ -14,11 +19,35 @@ public class Order {
     private double subtotal;
     // TODO: Alter TAX_RATE later
     private final double TAX_RATE = 0.13;
+    private double calculatedTax;
     private double deliveryFees;
     private String status;
     private double total;
     private String orderStatus;
 
+    public Order(){}
+
+    protected Order(Parcel in) {
+        restaurant = in.readParcelable(Restaurant.class.getClassLoader());
+        subtotal = in.readDouble();
+        deliveryFees = in.readDouble();
+        status = in.readString();
+        calculatedTax = in.readDouble();
+        total = in.readDouble();
+        orderStatus = in.readString();
+    }
+
+    public static final Creator<Order> CREATOR = new Creator<Order>() {
+        @Override
+        public Order createFromParcel(Parcel in) {
+            return new Order(in);
+        }
+
+        @Override
+        public Order[] newArray(int size) {
+            return new Order[size];
+        }
+    };
 
     public Restaurant getRestaurant(){
         return restaurant;
@@ -112,4 +141,30 @@ public class Order {
         }
     }
 
+    public double getCalculatedTax(){
+        return calculatedTax = subtotal * TAX_RATE;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeParcelable(restaurant, flags);
+        dest.writeParcelable(menu, flags);
+        dest.writeDouble(subtotal);
+        dest.writeDouble(deliveryFees);
+        dest.writeString(status);
+        dest.writeDouble(total);
+        dest.writeString(orderStatus);
+
+        dest.writeInt(selectedFoodItems.size());
+        for (Map.Entry<FoodItem, Integer> entry : selectedFoodItems.entrySet()) {
+            dest.writeParcelable((Parcelable) entry.getKey(), flags);
+            dest.writeInt(entry.getValue());
+        }
+
+    }
 }
