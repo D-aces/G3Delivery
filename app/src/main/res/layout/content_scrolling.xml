@@ -43,7 +43,7 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/total_text"
+                android:id="@+id/current_orders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Current Orders"
@@ -119,7 +119,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/total_text"
+                android:id="@+id/order_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="\nOrder Status: Being Processed\n\n Estimated Time: 10 minutes\n\n Maybe a map here?"
