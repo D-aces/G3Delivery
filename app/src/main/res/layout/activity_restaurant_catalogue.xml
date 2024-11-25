@@ -30,6 +30,8 @@
             android:text="G3 Delivery" />
     </androidx.appcompat.widget.Toolbar>
 
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listRestaurant"
         android:layout_width="match_parent"
@@ -38,4 +40,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
