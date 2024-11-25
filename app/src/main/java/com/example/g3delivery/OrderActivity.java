@@ -35,6 +35,7 @@ public class OrderActivity extends AppCompatActivity {
         Intent intent = getIntent();
         order = intent.getParcelableExtra("Order");
 
+        System.out.println(order.getFoodMap());
 
         // Calculate and display amounts
         order.calculateSubtotal();
