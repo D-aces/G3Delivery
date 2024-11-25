@@ -9,16 +9,18 @@ public class FoodItem {
     private Map<String, Object> customization; // Change to Map<String, Object>
     private String name; // Food item name
     private double price; // Food item price
+    private String description;
 
     // Empty constructor for Firestore deserialization
     public FoodItem() {}
 
     // Constructor
-    public FoodItem(List<String> category, Map<String, Object> customization, String name, double price) {
+    public FoodItem(List<String> category, Map<String, Object> customization, String name, double price, String description) {
         this.category = category;
         this.customization = customization;
         this.name = name;
         this.price = price;
+        this.description = description;
     }
 
     // Getters and Setters
@@ -52,5 +54,9 @@ public class FoodItem {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
