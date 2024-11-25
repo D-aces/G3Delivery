@@ -20,10 +20,10 @@
 
         <ImageView
             android:id="@+id/FoodImage"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginEnd="20dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="centerCrop"
             app:srcCompat="@android:drawable/ic_menu_manage" />
 
         <LinearLayout
@@ -48,7 +48,7 @@
                 android:id="@+id/food_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis hendrerit eget nibh quis sagittis. Etiam vestibulum lacinia dolor, vel" />
+                android:text="Description" />
         </LinearLayout>
 
     </LinearLayout>

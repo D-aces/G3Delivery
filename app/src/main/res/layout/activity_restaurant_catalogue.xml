@@ -30,6 +30,8 @@
             android:text="G3 Delivery" />
     </androidx.appcompat.widget.Toolbar>
 
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listRestaurant"
         android:layout_width="match_parent"
@@ -39,22 +41,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-    <FrameLayout
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listRestaurant">
 
-        <com.mapbox.maps.MapView
-            android:id="@+id/mapView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:mapbox_cameraBearing="0.0"
-            app:mapbox_cameraPitch="0.0"
-            app:mapbox_cameraTargetLat="39.5"
-            app:mapbox_cameraTargetLng="-98.0"
-            app:mapbox_cameraZoom="2.0" />
 
-    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
