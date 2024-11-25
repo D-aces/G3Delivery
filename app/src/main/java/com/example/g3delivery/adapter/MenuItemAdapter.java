@@ -68,14 +68,14 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
 
         holder.minusButton.setOnClickListener(v -> {
             if (quantity.intValue() > 0) {
-                order.removeItemFromOrder(item, 1);
+                order.removeItemFromOrder(item, quantity.intValue());
                 quantity.getAndDecrement();
                 holder.itemQuantity.setText(String.valueOf(quantity.get()));
             }
         });
 
         holder.plusButton.setOnClickListener(v -> {
-            order.addItemToOrder(item, 1);
+            order.addItemToOrder(item, quantity.intValue());
             quantity.getAndIncrement();
             holder.itemQuantity.setText(String.valueOf(quantity.get()));
         });

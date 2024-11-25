@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.g3delivery.data.model.FoodItem;
 import com.example.g3delivery.data.model.Order;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 public class CheckoutActivity extends AppCompatActivity {
@@ -44,23 +45,25 @@ public class CheckoutActivity extends AppCompatActivity {
         Intent intent = getIntent();
         order = intent.getParcelableExtra("Order");
 
-        Log.d("OrderDebug", "Subtotal: " + order.getSubtotal());
-        Log.d("OrderDebug", "Tax: " + order.getCalculatedTax());
-        Log.d("OrderDebug", "Delivery: " + order.getDeliveryFees());
-        Log.d("OrderDebug", "Total: " + order.getTotal());
-        Log.d("OrderDebug", "Items: " + order.getFoodMap());
+        // Calculate Amounts
+        order.calculateSubtotal();
+        order.setDeliveryFees(2);
+        order.calculateTotal();
 
         HashMap<FoodItem, Integer> food = order.getFoodMap();
         for(FoodItem fd : food.keySet()){
             System.out.println(fd.getName());
+            System.out.println(food.get(fd));
         }
 
         // Append the values
+        DecimalFormat df = new DecimalFormat("#.00");
+
         restaurantName.append(order.getRestaurant().getName());
-        subtotal.append(Double.toString(order.getSubtotal()));
-        tax.append(Double.toString(order.getCalculatedTax()));
-        delivery.append(Double.toString(order.getDeliveryFees()));
-        total.append(Double.toString(order.getTotal()));
+        subtotal.append(df.format(order.getSubtotal()));
+        tax.append(df.format(order.getCalculatedTax()));
+        delivery.append(df.format(order.getDeliveryFees()));
+        total.append(df.format(order.getTotal()));
 
         // Find the button and set its onClick listener
         Button checkoutButton = findViewById(R.id.checkout_button);

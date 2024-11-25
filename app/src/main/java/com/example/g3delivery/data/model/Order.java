@@ -122,8 +122,8 @@ public class Order implements Parcelable {
     }
 
     // Multiple by the tax rate and add the total and delivery fees to get the total due
-    public double calculateTotal(){
-        return (total * TAX_RATE) + total + deliveryFees;
+    public void calculateTotal(){
+        total = (subtotal * TAX_RATE) + subtotal + deliveryFees;
     }
 
     // TODO Add order status logic
@@ -132,7 +132,7 @@ public class Order implements Parcelable {
     }
     public void removeItemFromOrder(FoodItem foodItem, int quantity) {
         // Error check
-        if(quantity < 0){
+        if(quantity <= 0){
             return;
         }
         // Check if the item exists in the map
@@ -150,10 +150,6 @@ public class Order implements Parcelable {
     }
 
     public void addItemToOrder(FoodItem foodItem, int quantity){
-        // Error check
-        if(quantity <= 0){
-            return;
-        }
         // Check if the item exists in the map
         if(selectedFoodItems.containsKey(foodItem)){
                 // Subtract from quantity given the current food item object
