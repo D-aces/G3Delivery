@@ -85,46 +85,12 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
             // Get value of the atomic integer and passes it to addItemToOrder
             order.addItemToOrder(item, quantity.intValue());
         });
-
-
-//        Order order = new Order();
-//        // Initialize quantity
-//        int[] quantity = {0}; // Use an array to allow updates inside listeners
-//        holder.quantityText.setText(String.valueOf(quantity[0]));
-        // holder.foodCategory.setText(item.getCategory()); // Uncomment if using a food category
-
-//        // Handle minus button click
-//        holder.minusButton.setOnClickListener(v -> {
-//            if (quantity[0] > 0) {
-//                quantity[0]--;
-//                holder.quantityText.setText(String.valueOf(quantity[0]));
-//                order.removeItemToOrder(item); // Call removeItemToOrder
-//            }
-//        });
-//
-//        // Handle plus button click
-//        holder.plusButton.setOnClickListener(v -> {
-//            quantity[0]++;
-//            holder.quantityText.setText(String.valueOf(quantity[0]));
-//            order.addItemToOrder(item); // Call addItemToOrder
-//        });
     }
 
     @Override
     public int getItemCount() {
         return foodItems.size();
     }
-
-    // Helper method to format customizations
-//    private String formatCustomizations(Map<String, Double> customizations) {
-//        if (customizations == null || customizations.isEmpty()) {
-//            return "No customizations available";
-//        }
-//
-//        return customizations.entrySet().stream()
-//                .map(entry -> entry.getKey() + " - $" + entry.getValue())
-//                .collect(Collectors.joining(", "));
-//    }
 
     public static class MenuItemViewHolder extends RecyclerView.ViewHolder {
         TextView foodName, foodPrice, foodDescription, itemQuantity;

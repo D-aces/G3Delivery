@@ -122,10 +122,17 @@
                 android:id="@+id/order_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="\nOrder Status: Being Processed\n\n Estimated Time: 10 minutes\n\n Maybe a map here?"
+                android:text="\nOrder Status: Being Processed\n\n Estimated Time: 10 minutes"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <com.mapbox.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="20dp"
+                app:mapbox_locationComponentEnabled="true"
+                app:mapbox_locationComponentPuckBearing="heading" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

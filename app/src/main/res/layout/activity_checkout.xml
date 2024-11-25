@@ -113,7 +113,8 @@ tools:context=".RestaurantCatalogueActivity">
             <!-- Checkout Button -->
             <Button
                 android:id="@+id/checkout_button"
-                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Checkout" />
         </LinearLayout>

@@ -2,6 +2,7 @@ package com.example.g3delivery;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -73,5 +74,11 @@ public class MenuActivity extends AppCompatActivity {
                 System.err.println(e);
             }
         });
+    }
+
+    public void openCart(View view){
+            // Navigate back to Cart Activity
+            Intent intent = new Intent(MenuActivity.this, CheckoutActivity.class);
+            startActivity(intent);
     }
 }
