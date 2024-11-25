@@ -3,13 +3,14 @@ package com.example.g3delivery.data.model;
 import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Order {
     // TODO Add user specific logic here
     // private user
     private Restaurant restaurant;
     private Menu menu;
-    private ArrayList<FoodItem> selectedFoodItems = new ArrayList<FoodItem>();
+    private HashMap<FoodItem, Integer> selectedFoodItems = new HashMap<>();
     private double subtotal;
     // TODO: Alter TAX_RATE later
     private final double TAX_RATE = 0.13;
@@ -23,9 +24,7 @@ public class Order {
         return restaurant;
     }
 
-    public ArrayList<FoodItem> getSelectedFoodItems(){
-        return selectedFoodItems;
-    }
+    public HashMap<FoodItem, Integer> getFoodMap(){return selectedFoodItems;}
 
     public double getSubtotal(){
         return subtotal;
@@ -51,22 +50,16 @@ public class Order {
         this.restaurant = restaurant;
     }
 
-    public void selectFoodItem(String name){
 
-        //selectedFoodItems.add(menu.getFoodItem(name));
-
-    }
-
-    // TODO Add calculation logic for the order subtotal method
     public double calculateSubtotal() {
         // Initialize the subtotal to 0
         total = 0.0;
+        FoodItem[] orderList = selectedFoodItems.keySet().toArray(new FoodItem[0]);
 
         // Loop through each selected food item
-        for (FoodItem foodItem : selectedFoodItems) {
-
-            // Add the price of the current food item to the total
-            total += foodItem.getPrice();
+        for (int x = 0; x < selectedFoodItems.size(); x++) {
+            // Get the cost of the selected food item based on cost and quanity
+            total = orderList[x].getPrice() * selectedFoodItems.get(orderList[x]);
         }
 
         // Return the calculated subtotal
@@ -77,27 +70,46 @@ public class Order {
         this.deliveryFees = deliveryFees;
     }
 
-    // TODO Add calculation logic for the order total method
-    public void calculateTotal(){
-
+    // Multiple by the tax rate and add the total and delivery fees to get the total due
+    public double calculateTotal(){
+        return (total * TAX_RATE) + total + deliveryFees;
     }
 
     // TODO Add order status logic
     public void setOrderStatus(){
 
     }
-    public void removeItemToOrder(FoodItem foodItem) {
-        // Check if the item exists in the list and remove it
-        if (selectedFoodItems.contains(foodItem)) {
-            selectedFoodItems.remove(foodItem);
-        } else {
-            System.out.println("Item not in the order!");
+    public void removeItemFromOrder(FoodItem foodItem, int quantity) {
+        // Error check
+        if(quantity < 0){
+            return;
+        }
+        // Check if the item exists in the map
+        if(selectedFoodItems.containsKey(foodItem)){
+            // Check if the item value is greater than 0
+            if(selectedFoodItems.get(foodItem) > 0){
+                // Subtract from quantity given the current food item object
+                selectedFoodItems.replace(foodItem, selectedFoodItems.get(foodItem), quantity);
+            }
+            else {
+                // Remove the item if the quantity is 0 (or less --> shouldn't happen)
+                selectedFoodItems.remove(foodItem);
+            }
         }
     }
 
-    public void addItemToOrder(FoodItem foodItem){
-        selectedFoodItems.add(foodItem);
-
+    public void addItemToOrder(FoodItem foodItem, int quantity){
+        // Error check
+        if(quantity <= 0){
+            return;
+        }
+        // Check if the item exists in the map
+        if(selectedFoodItems.containsKey(foodItem)){
+                // Subtract from quantity given the current food item object
+                selectedFoodItems.replace(foodItem, selectedFoodItems.get(foodItem), quantity);
+        } else {
+            selectedFoodItems.put(foodItem, quantity);
+        }
     }
 
 }

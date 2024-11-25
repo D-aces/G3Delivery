@@ -91,27 +91,28 @@ public class AppDataSource {
     public void updateMenu() {}
     public void deleteMenu() {}
 
+    // TODO: Fix the order method so it writes to firebase
     // FoodItems Collection Operations
-    public void createOrder(Order order) {
-        DocumentReference orderDocRef = db.collection("orders").document();
-
-        Map<String, Object> orderData = new HashMap<>();
-        orderData.put("restaurant", order.getRestaurant().getName());
-        orderData.put("subtotal", order.getSubtotal());
-        orderData.put("taxRate", order.getTaxRate());
-        orderData.put("deliveryFees", order.getDeliveryFees());
-        orderData.put("status", order.getStatus());
-        orderData.put("total", order.getTotal());
-
-        orderDocRef.set(orderData)
-                .addOnSuccessListener(aVoid -> System.out.println("Order created with ID: " + orderDocRef.getId()))
-                .addOnFailureListener(e -> System.err.println("Error creating order: " + e.getMessage()));
-
-        // Add selected food items as sub-collection within this order
-        for (FoodItem item : order.getSelectedFoodItems()) {
-            addFoodItemToOrder(item, orderDocRef);
-        }
-    }
+//    public void createOrder(Order order) {
+//        DocumentReference orderDocRef = db.collection("orders").document();
+//
+//        Map<String, Object> orderData = new HashMap<>();
+//        orderData.put("restaurant", order.getRestaurant().getName());
+//        orderData.put("subtotal", order.getSubtotal());
+//        orderData.put("taxRate", order.getTaxRate());
+//        orderData.put("deliveryFees", order.getDeliveryFees());
+//        orderData.put("status", order.getStatus());
+//        orderData.put("total", order.getTotal());
+//
+//        orderDocRef.set(orderData)
+//                .addOnSuccessListener(aVoid -> System.out.println("Order created with ID: " + orderDocRef.getId()))
+//                .addOnFailureListener(e -> System.err.println("Error creating order: " + e.getMessage()));
+//
+//        // Add selected food items as sub-collection within this order
+//        for (FoodItem item : order.getSelectedFoodItems()) {
+//            addFoodItemToOrder(item, orderDocRef);
+//        }
+//    }
 
     private void addFoodItemToOrder(FoodItem item, DocumentReference orderDocRef) {
         Map<String, Object> foodItemData = new HashMap<>();
