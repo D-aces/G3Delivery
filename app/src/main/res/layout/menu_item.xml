@@ -19,12 +19,13 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
-            android:id="@+id/FoodImage"
+            android:id="@+id/food_image"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginEnd="8dp"
             android:scaleType="centerCrop"
-            app:srcCompat="@android:drawable/ic_menu_manage" />
+            app:srcCompat="@android:drawable/ic_menu_manage"
+            />
 
         <LinearLayout
             android:layout_width="0dp"
