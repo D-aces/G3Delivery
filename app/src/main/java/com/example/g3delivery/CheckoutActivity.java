@@ -2,7 +2,6 @@ package com.example.g3delivery;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,16 +11,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.g3delivery.data.model.FoodItem;
+import com.example.g3delivery.adapter.OrderItemAdapter;
 import com.example.g3delivery.data.model.Order;
 
 import java.text.DecimalFormat;
-import java.util.HashMap;
 
 public class CheckoutActivity extends AppCompatActivity {
     private TextView restaurantName, subtotal, tax, delivery, total;
-    Order order;
+    private RecyclerView orderItemsRecyclerView;
+    private Order order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +37,15 @@ public class CheckoutActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Initialize Textviews
+        // Initialize Views
         restaurantName = findViewById(R.id.restaurant_name);
         subtotal = findViewById(R.id.subtotal_text);
         tax = findViewById(R.id.taxes_text);
         delivery = findViewById(R.id.delivery_text);
         total = findViewById(R.id.total_text);
+        orderItemsRecyclerView = findViewById(R.id.order_items_recycler_view);
+
+        // Retrieve Order object from Intent
         Intent intent = getIntent();
         order = intent.getParcelableExtra("Order");
 
@@ -50,30 +54,25 @@ public class CheckoutActivity extends AppCompatActivity {
         order.setDeliveryFees(2);
         order.calculateTotal();
 
-        HashMap<FoodItem, Integer> food = order.getFoodMap();
-        for(FoodItem fd : food.keySet()){
-            System.out.println(fd.getName());
-            System.out.println(food.get(fd));
-        }
-
-        // Append the values
+        // Update the text views
         DecimalFormat df = new DecimalFormat("#.00");
+        restaurantName.setText(order.getRestaurant().getName());
+        subtotal.setText(String.format("Subtotal: $%s", df.format(order.getSubtotal())));
+        tax.setText(String.format("Tax: $%s", df.format(order.getCalculatedTax())));
+        delivery.setText(String.format("Delivery: $%s", df.format(order.getDeliveryFees())));
+        total.setText(String.format("Total: $%s", df.format(order.getTotal())));
 
-        restaurantName.append(order.getRestaurant().getName());
-        subtotal.append(df.format(order.getSubtotal()));
-        tax.append(df.format(order.getCalculatedTax()));
-        delivery.append(df.format(order.getDeliveryFees()));
-        total.append(df.format(order.getTotal()));
+        // Initialize RecyclerView
+        orderItemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        OrderItemAdapter adapter = new OrderItemAdapter(order.getFoodMap());
+        orderItemsRecyclerView.setAdapter(adapter);
 
-        // Find the button and set its onClick listener
+        // Checkout button
         Button checkoutButton = findViewById(R.id.checkout_button);
-        checkoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to ScrollingActivity
-                Intent intent = new Intent(CheckoutActivity.this, ContentScrollingActivity.class);
-                startActivity(intent);
-            }
+        checkoutButton.setOnClickListener(v -> {
+            // Handle checkout logic or navigate to another activity
+            Intent nextIntent = new Intent(CheckoutActivity.this, ContentScrollingActivity.class);
+            startActivity(nextIntent);
         });
     }
 }
