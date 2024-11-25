@@ -40,15 +40,25 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <Button
+            android:id="@+id/picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="Complete Order"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <!-- RecyclerView for Items -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/order_items_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/summary_container"
             android:padding="16dp"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/summary_container"
+            app:layout_constraintTop_toBottomOf="@+id/picture" />
 
 
         <!-- Summary Container -->
@@ -59,6 +69,16 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             android:padding="16dp">
+
+            <com.mapbox.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_gravity="center"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                app:mapbox_locationComponentEnabled="true"
+                app:mapbox_locationComponentPuckBearing="heading" />
 
             <TextView
                 android:id="@+id/subtotal_text"
