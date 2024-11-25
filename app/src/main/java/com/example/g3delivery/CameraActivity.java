@@ -1,5 +1,6 @@
 package com.example.g3delivery;
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
@@ -13,6 +14,7 @@ import android.util.Size;
 import android.view.Surface;
 import android.view.TextureView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +38,15 @@ public class CameraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
+
+        // Reference the back button
+        ImageButton backButton = findViewById(R.id.back_button2);
+
+        backButton.setOnClickListener(v -> {
+            // Navigate back to RestaurantCatalogueActivity
+            Intent intent = new Intent(CameraActivity.this, RestaurantCatalogueActivity.class);
+            startActivity(intent);
+        });
 
         textureView = findViewById(R.id.textureView);
         Button btnCapture = findViewById(R.id.btn_capture);
