@@ -25,7 +25,8 @@ public class Order implements Parcelable {
     private double total;
     private String orderStatus;
 
-    public Order(){}
+    public Order() {
+    }
 
     protected Order(Parcel in) {
         restaurant = in.readParcelable(Restaurant.class.getClassLoader());
@@ -76,33 +77,35 @@ public class Order implements Parcelable {
         }
     };
 
-    public Restaurant getRestaurant(){
+    public Restaurant getRestaurant() {
         return restaurant;
     }
 
-    public HashMap<FoodItem, Integer> getFoodMap(){return selectedFoodItems;}
+    public HashMap<FoodItem, Integer> getFoodMap() {
+        return selectedFoodItems;
+    }
 
-    public double getSubtotal(){
+    public double getSubtotal() {
         return subtotal;
     }
 
-    public double getTaxRate(){
+    public double getTaxRate() {
         return TAX_RATE;
     }
 
-    public double getDeliveryFees(){
+    public double getDeliveryFees() {
         return deliveryFees;
     }
 
-    public String getStatus(){
+    public String getStatus() {
         return status;
     }
 
-    public double getTotal(){
+    public double getTotal() {
         return total;
     }
 
-    public void setRestaurant(Restaurant restaurant){
+    public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
 
@@ -117,49 +120,48 @@ public class Order implements Parcelable {
     }
 
 
-    public void setDeliveryFees(double deliveryFees){
+    public void setDeliveryFees(double deliveryFees) {
         this.deliveryFees = deliveryFees;
     }
 
     // Multiple by the tax rate and add the total and delivery fees to get the total due
-    public void calculateTotal(){
+    public void calculateTotal() {
         total = (subtotal * TAX_RATE) + subtotal + deliveryFees;
     }
 
     // TODO Add order status logic
-    public void setOrderStatus(){
+    public void setOrderStatus() {
 
     }
+
     public void removeItemFromOrder(FoodItem foodItem, int quantity) {
         // Error check
-        if(quantity <= 0){
+        if (quantity <= 0) {
             return;
         }
         // Check if the item exists in the map
-        if(selectedFoodItems.containsKey(foodItem)){
-            // Check if the item value is greater than 0
-            if(selectedFoodItems.get(foodItem) > 0){
-                // Subtract from quantity given the current food item object
-                selectedFoodItems.replace(foodItem, selectedFoodItems.get(foodItem), quantity);
-            }
-            else {
-                // Remove the item if the quantity is 0 (or less --> shouldn't happen)
-                selectedFoodItems.remove(foodItem);
+        if (selectedFoodItems.containsKey(foodItem)) {
+            int currentQuantity = selectedFoodItems.get(foodItem);
+            int newQuantity = currentQuantity - quantity;
+            if (newQuantity > 0) {
+                selectedFoodItems.put(foodItem, newQuantity);
+            } else {
+                selectedFoodItems.remove(foodItem); // Remove the item if quantity is 0 or less
             }
         }
     }
 
-    public void addItemToOrder(FoodItem foodItem, int quantity){
+    public void addItemToOrder(FoodItem foodItem, int quantity) {
         // Check if the item exists in the map
-        if(selectedFoodItems.containsKey(foodItem)){
-                // Subtract from quantity given the current food item object
-                selectedFoodItems.replace(foodItem, selectedFoodItems.get(foodItem), quantity);
+        if (selectedFoodItems.containsKey(foodItem)) {
+            // Add from quantity given the current food item object
+            selectedFoodItems.put(foodItem, selectedFoodItems.getOrDefault(foodItem, 1) + quantity);
         } else {
             selectedFoodItems.put(foodItem, quantity);
         }
     }
 
-    public double getCalculatedTax(){
+    public double getCalculatedTax() {
         return calculatedTax = subtotal * TAX_RATE;
     }
 

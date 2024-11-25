@@ -51,7 +51,8 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
         holder.foodName.setText(item.getName());
         holder.foodPrice.setText("$" + item.getPrice());
 
-        AtomicInteger quantity = new AtomicInteger(order.getFoodMap().getOrDefault(item, 0));
+        int quantity = order.getFoodMap().getOrDefault(item, 0);
+        holder.itemQuantity.setText(String.valueOf(quantity));
 
         String foodName = item.getName().toLowerCase().replace(" ", "_");
         int imageResId = holder.itemView.getContext().getResources().getIdentifier(
@@ -66,18 +67,21 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
 
         holder.foodDescription.setText(item.getDescription());
 
+        // Set up the minus button click listener
         holder.minusButton.setOnClickListener(v -> {
-            if (quantity.intValue() > 0) {
-                order.removeItemFromOrder(item, quantity.intValue());
-                quantity.getAndDecrement();
-                holder.itemQuantity.setText(String.valueOf(quantity.get()));
+            int currentQuantity = order.getFoodMap().getOrDefault(item, 0);
+            if (currentQuantity > 0) {
+                order.removeItemFromOrder(item, 1); // Decrement by 1
+                int updatedQuantity = order.getFoodMap().getOrDefault(item, 0);
+                holder.itemQuantity.setText(String.valueOf(updatedQuantity));
             }
         });
 
+        // Set up the plus button click listener
         holder.plusButton.setOnClickListener(v -> {
-            order.addItemToOrder(item, quantity.intValue());
-            quantity.getAndIncrement();
-            holder.itemQuantity.setText(String.valueOf(quantity.get()));
+            order.addItemToOrder(item, 1); // Increment by 1
+            int updatedQuantity = order.getFoodMap().getOrDefault(item, 0);
+            holder.itemQuantity.setText(String.valueOf(updatedQuantity));
         });
 
     }
