@@ -29,12 +29,39 @@ public class Order implements Parcelable {
 
     protected Order(Parcel in) {
         restaurant = in.readParcelable(Restaurant.class.getClassLoader());
+        menu = in.readParcelable(Menu.class.getClassLoader());
         subtotal = in.readDouble();
         deliveryFees = in.readDouble();
         status = in.readString();
-        calculatedTax = in.readDouble();
         total = in.readDouble();
         orderStatus = in.readString();
+
+        // Read map size
+        int mapSize = in.readInt();
+        selectedFoodItems = new HashMap<>();
+        for (int i = 0; i < mapSize; i++) {
+            FoodItem key = in.readParcelable(FoodItem.class.getClassLoader());
+            int value = in.readInt();
+            selectedFoodItems.put(key, value);
+        }
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeParcelable(restaurant, flags);
+        dest.writeParcelable(menu, flags);
+        dest.writeDouble(subtotal);
+        dest.writeDouble(deliveryFees);
+        dest.writeString(status);
+        dest.writeDouble(total);
+        dest.writeString(orderStatus);
+
+        // Write map size
+        dest.writeInt(selectedFoodItems.size());
+        for (Map.Entry<FoodItem, Integer> entry : selectedFoodItems.entrySet()) {
+            dest.writeParcelable(entry.getKey(), flags); // Serialize key
+            dest.writeInt(entry.getValue()); // Serialize value
+        }
     }
 
     public static final Creator<Order> CREATOR = new Creator<Order>() {
@@ -81,19 +108,14 @@ public class Order implements Parcelable {
 
 
     public double calculateSubtotal() {
-        // Initialize the subtotal to 0
-        total = 0.0;
-        FoodItem[] orderList = selectedFoodItems.keySet().toArray(new FoodItem[0]);
-
-        // Loop through each selected food item
-        for (int x = 0; x < selectedFoodItems.size(); x++) {
-            // Get the cost of the selected food item based on cost and quanity
-            total = orderList[x].getPrice() * selectedFoodItems.get(orderList[x]);
+        subtotal = 0.0; // Reset subtotal
+        for (Map.Entry<FoodItem, Integer> entry : selectedFoodItems.entrySet()) {
+            // Accumulate subtotal as price * quantity
+            subtotal += entry.getKey().getPrice() * entry.getValue();
         }
-
-        // Return the calculated subtotal
-        return total;
+        return subtotal;
     }
+
 
     public void setDeliveryFees(double deliveryFees){
         this.deliveryFees = deliveryFees;
@@ -148,23 +170,5 @@ public class Order implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeParcelable(restaurant, flags);
-        dest.writeParcelable(menu, flags);
-        dest.writeDouble(subtotal);
-        dest.writeDouble(deliveryFees);
-        dest.writeString(status);
-        dest.writeDouble(total);
-        dest.writeString(orderStatus);
-
-        dest.writeInt(selectedFoodItems.size());
-        for (Map.Entry<FoodItem, Integer> entry : selectedFoodItems.entrySet()) {
-            dest.writeParcelable((Parcelable) entry.getKey(), flags);
-            dest.writeInt(entry.getValue());
-        }
-
     }
 }

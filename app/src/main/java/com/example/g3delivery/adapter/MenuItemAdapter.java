@@ -51,7 +51,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
         holder.foodName.setText(item.getName());
         holder.foodPrice.setText("$" + item.getPrice());
 
-        AtomicInteger quantity = new AtomicInteger();
+        AtomicInteger quantity = new AtomicInteger(order.getFoodMap().getOrDefault(item, 0));
 
         String foodName = item.getName().toLowerCase().replace(" ", "_");
         int imageResId = holder.itemView.getContext().getResources().getIdentifier(
@@ -68,17 +68,18 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
 
         holder.minusButton.setOnClickListener(v -> {
             if (quantity.intValue() > 0) {
+                order.removeItemFromOrder(item, 1);
                 quantity.getAndDecrement();
                 holder.itemQuantity.setText(String.valueOf(quantity.get()));
-                order.removeItemFromOrder(item, quantity.intValue());
             }
         });
 
         holder.plusButton.setOnClickListener(v -> {
+            order.addItemToOrder(item, 1);
             quantity.getAndIncrement();
             holder.itemQuantity.setText(String.valueOf(quantity.get()));
-            order.addItemToOrder(item, quantity.intValue());
         });
+
     }
 
 

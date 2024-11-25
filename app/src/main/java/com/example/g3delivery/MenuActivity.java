@@ -83,6 +83,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void openCart(View view){
+            System.out.println(order.getFoodMap().keySet());
             // Navigate back to Cart Activity
             Intent intent = new Intent(MenuActivity.this, CheckoutActivity.class);
             intent.putExtra("Order", order);
