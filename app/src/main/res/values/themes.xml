@@ -6,4 +6,13 @@
     </style>
 
     <style name="Theme.G3Delivery" parent="Base.Theme.G3Delivery" />
+
+    <style name="Theme.G3Delivery.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.G3Delivery.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.G3Delivery.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
