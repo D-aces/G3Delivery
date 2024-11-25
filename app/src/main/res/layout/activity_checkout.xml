@@ -1,122 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/main"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".RestaurantCatalogueActivity">
-
-<androidx.appcompat.widget.Toolbar
-    android:id="@+id/toolbar"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="20sp"
-    android:background="@color/black"
-    android:minHeight="?attr/actionBarSize"
-    android:backgroundTint="@color/black"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:titleMargin="20dp"
-    app:titleTextColor="@color/white">
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:text="G3 Delivery" />
-</androidx.appcompat.widget.Toolbar>
+    android:layout_height="match_parent"
+    tools:context=".CheckoutActivity">
 
-    <ScrollView
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        android:padding="20sp"
+        android:background="@color/black"
+        android:backgroundTint="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:titleMargin="20dp"
+        app:titleTextColor="@color/white">
 
-        <LinearLayout
-
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:text="G3 Delivery" />
+    </androidx.appcompat.widget.Toolbar>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-            <!-- Order Items -->
-            <TextView
-                android:id="@+id/restaurant_name"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:text=""
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/restaurant_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Restaurant Name"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/ff"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Item 1: French Fries" />
 
-            <TextView
-                android:id="@+id/ffprice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="$1.99\n" />
+    <!-- RecyclerView for Order Items -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/order_items_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/checkout_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"
+        android:scrollbars="vertical" />
 
-            <TextView
-                android:id="@+id/bm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Item 2: Big Mac" />
+    <!-- Subtotal -->
+    <TextView
+        android:id="@+id/subtotal_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Subtotal: $"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/order_items_recycler_view"
+        android:padding="8dp"
+        android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/bmprice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="$3.99\n" />
-        </LinearLayout>
+    <!-- Tax -->
+    <TextView
+        android:id="@+id/taxes_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tax: $"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subtotal_text"
+        android:padding="8dp"
+        android:textSize="16sp" />
 
-            <!-- Subtotal -->
-            <TextView
-                android:id="@+id/subtotal_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Subtotal: $" />
+    <!-- Delivery Fee -->
+    <TextView
+        android:id="@+id/delivery_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delivery: $"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/taxes_text"
+        android:padding="8dp"
+        android:textSize="16sp" />
 
-            <!-- Additional Fees (Taxes, Discounts) -->
-            <TextView
-                android:id="@+id/taxes_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tax: $" />
+    <!-- Total Amount -->
+    <TextView
+        android:id="@+id/total_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total: $"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delivery_text"
+        android:padding="8dp"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/delivery_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Delivery: $" />
+    <!-- Checkout Button -->
+    <Button
+        android:id="@+id/checkout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Checkout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/total_text"
+        android:layout_margin="16dp" />
 
-            <!-- Total Amount -->
-            <TextView
-                android:id="@+id/total_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Total: $"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <!-- Checkout Button -->
-            <Button
-                android:id="@+id/checkout_button"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Checkout" />
-        </LinearLayout>
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
