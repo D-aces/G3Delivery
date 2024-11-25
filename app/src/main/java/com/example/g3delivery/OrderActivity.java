@@ -1,32 +1,55 @@
 package com.example.g3delivery;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
+import com.example.g3delivery.adapter.OrderItemAdapter;
+import com.example.g3delivery.data.model.Order;
 
-import com.example.g3delivery.databinding.ActivityOrderBinding;
+import java.text.DecimalFormat;
 
 public class OrderActivity extends AppCompatActivity {
 
-    private ActivityOrderBinding binding;
+    private TextView subtotalText, taxText, deliveryText, totalText;
+    private RecyclerView orderItemsRecyclerView;
+    private Order order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_order);
 
-        binding = ActivityOrderBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        // Initialize Views
+        subtotalText = findViewById(R.id.subtotal_text);
+        taxText = findViewById(R.id.tax_text);
+        deliveryText = findViewById(R.id.delivery_text);
+        totalText = findViewById(R.id.total_text);
+        orderItemsRecyclerView = findViewById(R.id.order_items_recycler_view);
 
-        Toolbar toolbar = binding.toolbar;
-        setSupportActionBar(toolbar);
-        CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
-        toolBarLayout.setTitle(getTitle());
+        // Retrieve Order object from Intent
+        Intent intent = getIntent();
+        order = intent.getParcelableExtra("Order");
+
+
+        // Calculate and display amounts
+        order.calculateSubtotal();
+        order.setDeliveryFees(2); // Fixed delivery fee
+        order.calculateTotal();
+
+        DecimalFormat df = new DecimalFormat("#.00");
+        subtotalText.setText(String.format("Subtotal: $%s", df.format(order.getSubtotal())));
+        taxText.setText(String.format("Tax: $%s", df.format(order.getCalculatedTax())));
+        deliveryText.setText(String.format("Delivery: $%s", df.format(order.getDeliveryFees())));
+        totalText.setText(String.format("Total: $%s", df.format(order.getTotal())));
+
+        // Set up RecyclerView
+        orderItemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        OrderItemAdapter adapter = new OrderItemAdapter(order.getFoodMap());
+        orderItemsRecyclerView.setAdapter(adapter);
     }
 }

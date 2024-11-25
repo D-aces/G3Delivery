@@ -71,7 +71,8 @@ public class CheckoutActivity extends AppCompatActivity {
         Button checkoutButton = findViewById(R.id.checkout_button);
         checkoutButton.setOnClickListener(v -> {
             // Handle checkout logic or navigate to another activity
-            Intent nextIntent = new Intent(CheckoutActivity.this, ContentScrollingActivity.class);
+            Intent nextIntent = new Intent(CheckoutActivity.this, OrderActivity.class);
+            intent.putExtra("Order", order);
             startActivity(nextIntent);
         });
     }
