@@ -2,6 +2,8 @@ package com.example.g3delivery;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -21,6 +23,8 @@ public class CheckoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_checkout);
+
+        // Set window insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -42,5 +46,16 @@ public class CheckoutActivity extends AppCompatActivity {
         tax.append(Double.toString(order.getCalculatedTax()));
         delivery.append(Double.toString(order.getDeliveryFees()));
         total.append(Double.toString(order.getTotal()));
+
+        // Find the button and set its onClick listener
+        Button checkoutButton = findViewById(R.id.checkout_button);
+        checkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to ScrollingActivity
+                Intent intent = new Intent(CheckoutActivity.this, ContentScrollingActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
