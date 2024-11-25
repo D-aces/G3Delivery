@@ -2,6 +2,7 @@ package com.example.g3delivery;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,7 +13,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.g3delivery.data.model.FoodItem;
 import com.example.g3delivery.data.model.Order;
+
+import java.util.HashMap;
 
 public class CheckoutActivity extends AppCompatActivity {
     private TextView restaurantName, subtotal, tax, delivery, total;
@@ -39,6 +43,17 @@ public class CheckoutActivity extends AppCompatActivity {
         total = findViewById(R.id.total_text);
         Intent intent = getIntent();
         order = intent.getParcelableExtra("Order");
+
+        Log.d("OrderDebug", "Subtotal: " + order.getSubtotal());
+        Log.d("OrderDebug", "Tax: " + order.getCalculatedTax());
+        Log.d("OrderDebug", "Delivery: " + order.getDeliveryFees());
+        Log.d("OrderDebug", "Total: " + order.getTotal());
+        Log.d("OrderDebug", "Items: " + order.getFoodMap());
+
+        HashMap<FoodItem, Integer> food = order.getFoodMap();
+        for(FoodItem fd : food.keySet()){
+            System.out.println(fd.getName());
+        }
 
         // Append the values
         restaurantName.append(order.getRestaurant().getName());
