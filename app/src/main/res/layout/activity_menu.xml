@@ -33,7 +33,8 @@
             android:src="@drawable/back_arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/white"
+            app:tint="@color/white"
+            android:background="none"
             />
 
         <TextView
