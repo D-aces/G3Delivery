@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -13,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.g3delivery.R;
 import com.example.g3delivery.data.model.FoodItem;
+import com.example.g3delivery.data.model.Order;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +63,32 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
         // Set the food description
         holder.foodDescription.setText(item.getDescription());
 
+//        Order order = new Order();
+//        // Initialize quantity
+//        int[] quantity = {0}; // Use an array to allow updates inside listeners
+//        holder.quantityText.setText(String.valueOf(quantity[0]));
         // holder.foodCategory.setText(item.getCategory()); // Uncomment if using a food category
+
+//        // Handle minus button click
+//        holder.minusButton.setOnClickListener(v -> {
+//            if (quantity[0] > 0) {
+//                quantity[0]--;
+//                holder.quantityText.setText(String.valueOf(quantity[0]));
+//                order.removeItemToOrder(item); // Call removeItemToOrder
+//            }
+//        });
+//
+//        // Handle plus button click
+//        holder.plusButton.setOnClickListener(v -> {
+//            quantity[0]++;
+//            holder.quantityText.setText(String.valueOf(quantity[0]));
+//            order.addItemToOrder(item); // Call addItemToOrder
+//        });
+
+
+
+
+
 
     }
 
@@ -81,8 +109,10 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
 //    }
 
     public static class MenuItemViewHolder extends RecyclerView.ViewHolder {
+        public BreakIterator quantityText;
         TextView foodName, foodPrice, foodCategory, foodDescription;
         ImageView foodImage;
+        Button plusButton, minusButton;
 
         public MenuItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,6 +121,12 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
             //foodCategory = itemView.findViewById(R.id.food_category);
             foodDescription = itemView.findViewById(R.id.food_description);
             foodImage = itemView.findViewById(R.id.food_image);
+
+//            plusButton = itemView.findViewById(R.id.button_plus);
+//            minusButton = itemView.findViewById(R.id.button_minus);
+
+
+
         }
     }
 }
