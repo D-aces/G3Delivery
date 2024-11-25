@@ -2,14 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Include this permission to grab user's general location -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Include this permission to grab user's general location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera"/>
 
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +20,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.G3Delivery"
         tools:targetApi="31">
+        <activity
+            android:name=".OrderActivity"
+            android:exported="false"
+            android:label="@string/title_activity_order"
+            android:theme="@style/Theme.G3Delivery.NoActionBar" />
         <activity
             android:name=".CheckoutActivity"
             android:exported="false" />

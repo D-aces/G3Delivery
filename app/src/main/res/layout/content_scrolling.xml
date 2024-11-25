@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RestaurantCatalogueActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20sp"
+        android:background="@color/black"
+        android:minHeight="?attr/actionBarSize"
+        android:backgroundTint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleMargin="20dp"
+        app:titleTextColor="@color/white">
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:text="G3 Delivery" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/total_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Current Orders"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <!-- Order Items -->
+                <TextView
+                    android:id="@+id/restraunt"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:text="Mcdonalds"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/ff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Item 1: French Fries" />
+
+                <TextView
+                    android:id="@+id/ffprice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="$1.99\n" />
+
+                <TextView
+                    android:id="@+id/bm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Item 2: Big Mac" />
+
+                <TextView
+                    android:id="@+id/bmprice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="$3.99\n" />
+            </LinearLayout>
+
+            <!-- Subtotal -->
+            <TextView
+                android:id="@+id/subtotal_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subtotal: $5.98" />
+
+            <!-- Additional Fees (Taxes, Discounts) -->
+            <TextView
+                android:id="@+id/taxes_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tax: $0.77" />
+
+            <TextView
+                android:id="@+id/delivery_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Delivery: $2.00" />
+
+            <!-- Total Amount -->
+            <TextView
+                android:id="@+id/total_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total: $8.75"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/total_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="\nOrder Status: Being Processed\n\n Estimated Time: 10 minutes\n\n Maybe a map here?"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
