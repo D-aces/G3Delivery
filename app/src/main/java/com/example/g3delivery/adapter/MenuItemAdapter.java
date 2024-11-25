@@ -1,15 +1,22 @@
 package com.example.g3delivery.adapter;
 
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.g3delivery.R;
 import com.example.g3delivery.data.model.FoodItem;
+import com.example.g3delivery.data.model.Order;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,15 +37,59 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
         return new MenuItemViewHolder(view);
     }
 
+    @SuppressLint("DiscouragedApi")
     @Override
     public void onBindViewHolder(@NonNull MenuItemViewHolder holder, int position) {
         FoodItem item = foodItems.get(position);
         holder.foodName.setText(item.getName());
         holder.foodPrice.setText("$" + item.getPrice());
-        //holder.foodCategory.setText(item.getCategory());
 
-        // Format customizations as a string and set it in the TextView
-//        holder.foodDescription.setText(formatCustomizations(item.getCustomizations()));
+        String foodName = item.getName().toLowerCase().replace(" ", "_"); // Convert to drawable-friendly format
+        // Retrieve the resource ID for the corresponding drawable
+        int imageResId = holder.itemView.getContext().getResources().getIdentifier(
+                foodName, "drawable", holder.itemView.getContext().getPackageName());
+
+
+
+        if (imageResId != 0) {
+            // If the image exists, decode it to a Bitmap and set it
+            Bitmap bitmap = BitmapFactory.decodeResource(holder.itemView.getContext().getResources(), imageResId);
+            holder.foodImage.setImageBitmap(bitmap);
+        } else {
+            // If the image doesn't exist, set a default image
+            holder.foodImage.setImageResource(R.drawable.cookie);
+        }
+
+        // Set the food description
+        holder.foodDescription.setText(item.getDescription());
+
+//        Order order = new Order();
+//        // Initialize quantity
+//        int[] quantity = {0}; // Use an array to allow updates inside listeners
+//        holder.quantityText.setText(String.valueOf(quantity[0]));
+        // holder.foodCategory.setText(item.getCategory()); // Uncomment if using a food category
+
+//        // Handle minus button click
+//        holder.minusButton.setOnClickListener(v -> {
+//            if (quantity[0] > 0) {
+//                quantity[0]--;
+//                holder.quantityText.setText(String.valueOf(quantity[0]));
+//                order.removeItemToOrder(item); // Call removeItemToOrder
+//            }
+//        });
+//
+//        // Handle plus button click
+//        holder.plusButton.setOnClickListener(v -> {
+//            quantity[0]++;
+//            holder.quantityText.setText(String.valueOf(quantity[0]));
+//            order.addItemToOrder(item); // Call addItemToOrder
+//        });
+
+
+
+
+
+
     }
 
     @Override
@@ -58,7 +109,10 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
 //    }
 
     public static class MenuItemViewHolder extends RecyclerView.ViewHolder {
+        public BreakIterator quantityText;
         TextView foodName, foodPrice, foodCategory, foodDescription;
+        ImageView foodImage;
+        Button plusButton, minusButton;
 
         public MenuItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +120,13 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
             foodPrice = itemView.findViewById(R.id.food_price);
             //foodCategory = itemView.findViewById(R.id.food_category);
             foodDescription = itemView.findViewById(R.id.food_description);
+            foodImage = itemView.findViewById(R.id.food_image);
+
+//            plusButton = itemView.findViewById(R.id.button_plus);
+//            minusButton = itemView.findViewById(R.id.button_minus);
+
+
+
         }
     }
 }

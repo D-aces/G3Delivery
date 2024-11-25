@@ -18,6 +18,7 @@ public class Order {
     private double total;
     private String orderStatus;
 
+
     public Restaurant getRestaurant(){
         return restaurant;
     }
@@ -57,8 +58,19 @@ public class Order {
     }
 
     // TODO Add calculation logic for the order subtotal method
-    public void calculateSubtotal(){
-        //subtotal = ;
+    public double calculateSubtotal() {
+        // Initialize the subtotal to 0
+        total = 0.0;
+
+        // Loop through each selected food item
+        for (FoodItem foodItem : selectedFoodItems) {
+
+            // Add the price of the current food item to the total
+            total += foodItem.getPrice();
+        }
+
+        // Return the calculated subtotal
+        return total;
     }
 
     public void setDeliveryFees(double deliveryFees){
@@ -72,6 +84,19 @@ public class Order {
 
     // TODO Add order status logic
     public void setOrderStatus(){
+
+    }
+    public void removeItemToOrder(FoodItem foodItem) {
+        // Check if the item exists in the list and remove it
+        if (selectedFoodItems.contains(foodItem)) {
+            selectedFoodItems.remove(foodItem);
+        } else {
+            System.out.println("Item not in the order!");
+        }
+    }
+
+    public void addItemToOrder(FoodItem foodItem){
+        selectedFoodItems.add(foodItem);
 
     }
 
