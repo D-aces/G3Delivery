@@ -19,7 +19,8 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="82dp"
+            android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
@@ -48,6 +49,7 @@
             app:layout_constraintBottom_toTopOf="@+id/summary_container"
             android:padding="16dp"
             android:scrollbars="vertical" />
+
 
         <!-- Summary Container -->
         <LinearLayout
